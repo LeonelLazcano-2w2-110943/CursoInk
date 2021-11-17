@@ -1,0 +1,15 @@
+F:\escritorio\UTN\PS\CursoInk\Persistencia\bin\Debug\netcoreapp3.1\Persistencia.deps.json
+F:\escritorio\UTN\PS\CursoInk\Persistencia\bin\Debug\netcoreapp3.1\Persistencia.runtimeconfig.json
+F:\escritorio\UTN\PS\CursoInk\Persistencia\bin\Debug\netcoreapp3.1\Persistencia.runtimeconfig.dev.json
+F:\escritorio\UTN\PS\CursoInk\Persistencia\bin\Debug\netcoreapp3.1\Persistencia.dll
+F:\escritorio\UTN\PS\CursoInk\Persistencia\bin\Debug\netcoreapp3.1\Persistencia.pdb
+F:\escritorio\UTN\PS\CursoInk\Persistencia\bin\Debug\netcoreapp3.1\Dominio.dll
+F:\escritorio\UTN\PS\CursoInk\Persistencia\bin\Debug\netcoreapp3.1\Dominio.pdb
+F:\escritorio\UTN\PS\CursoInk\Persistencia\obj\Debug\netcoreapp3.1\Persistencia.csprojAssemblyReference.cache
+F:\escritorio\UTN\PS\CursoInk\Persistencia\obj\Debug\netcoreapp3.1\Persistencia.AssemblyInfoInputs.cache
+F:\escritorio\UTN\PS\CursoInk\Persistencia\obj\Debug\netcoreapp3.1\Persistencia.AssemblyInfo.cs
+F:\escritorio\UTN\PS\CursoInk\Persistencia\obj\Debug\netcoreapp3.1\Persistencia.csproj.CoreCompileInputs.cache
+F:\escritorio\UTN\PS\CursoInk\Persistencia\obj\Debug\netcoreapp3.1\Persistencia.csproj.CopyComplete
+F:\escritorio\UTN\PS\CursoInk\Persistencia\obj\Debug\netcoreapp3.1\Persistencia.dll
+F:\escritorio\UTN\PS\CursoInk\Persistencia\obj\Debug\netcoreapp3.1\Persistencia.pdb
+F:\escritorio\UTN\PS\CursoInk\Persistencia\obj\Debug\netcoreapp3.1\Persistencia.genruntimeconfig.cache

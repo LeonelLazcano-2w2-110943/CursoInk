@@ -1,0 +1,14 @@
+F:\escritorio\UTN\PS\CursoInk\Aplicacion\bin\Debug\netcoreapp3.1\Aplicacion.deps.json
+F:\escritorio\UTN\PS\CursoInk\Aplicacion\bin\Debug\netcoreapp3.1\Aplicacion.dll
+F:\escritorio\UTN\PS\CursoInk\Aplicacion\bin\Debug\netcoreapp3.1\Aplicacion.pdb
+F:\escritorio\UTN\PS\CursoInk\Aplicacion\bin\Debug\netcoreapp3.1\Dominio.dll
+F:\escritorio\UTN\PS\CursoInk\Aplicacion\bin\Debug\netcoreapp3.1\Persistencia.dll
+F:\escritorio\UTN\PS\CursoInk\Aplicacion\bin\Debug\netcoreapp3.1\Dominio.pdb
+F:\escritorio\UTN\PS\CursoInk\Aplicacion\bin\Debug\netcoreapp3.1\Persistencia.pdb
+F:\escritorio\UTN\PS\CursoInk\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.csprojAssemblyReference.cache
+F:\escritorio\UTN\PS\CursoInk\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.AssemblyInfoInputs.cache
+F:\escritorio\UTN\PS\CursoInk\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.AssemblyInfo.cs
+F:\escritorio\UTN\PS\CursoInk\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.csproj.CoreCompileInputs.cache
+F:\escritorio\UTN\PS\CursoInk\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.csproj.CopyComplete
+F:\escritorio\UTN\PS\CursoInk\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.dll
+F:\escritorio\UTN\PS\CursoInk\Aplicacion\obj\Debug\netcoreapp3.1\Aplicacion.pdb

@@ -1,0 +1,9 @@
+F:\escritorio\UTN\PS\CursoInk\Dominio\bin\Debug\netcoreapp3.1\Dominio.deps.json
+F:\escritorio\UTN\PS\CursoInk\Dominio\bin\Debug\netcoreapp3.1\Dominio.dll
+F:\escritorio\UTN\PS\CursoInk\Dominio\bin\Debug\netcoreapp3.1\Dominio.pdb
+F:\escritorio\UTN\PS\CursoInk\Dominio\obj\Debug\netcoreapp3.1\Dominio.AssemblyInfoInputs.cache
+F:\escritorio\UTN\PS\CursoInk\Dominio\obj\Debug\netcoreapp3.1\Dominio.AssemblyInfo.cs
+F:\escritorio\UTN\PS\CursoInk\Dominio\obj\Debug\netcoreapp3.1\Dominio.csproj.CoreCompileInputs.cache
+F:\escritorio\UTN\PS\CursoInk\Dominio\obj\Debug\netcoreapp3.1\Dominio.dll
+F:\escritorio\UTN\PS\CursoInk\Dominio\obj\Debug\netcoreapp3.1\Dominio.pdb
+F:\escritorio\UTN\PS\CursoInk\Dominio\obj\Debug\netcoreapp3.1\Dominio.csprojAssemblyReference.cache

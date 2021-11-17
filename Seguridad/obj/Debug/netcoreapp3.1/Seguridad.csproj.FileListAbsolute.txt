@@ -1,0 +1,16 @@
+F:\escritorio\UTN\PS\CursoInk\Seguridad\bin\Debug\netcoreapp3.1\Seguridad.deps.json
+F:\escritorio\UTN\PS\CursoInk\Seguridad\bin\Debug\netcoreapp3.1\Seguridad.dll
+F:\escritorio\UTN\PS\CursoInk\Seguridad\bin\Debug\netcoreapp3.1\Seguridad.pdb
+F:\escritorio\UTN\PS\CursoInk\Seguridad\bin\Debug\netcoreapp3.1\Aplicacion.dll
+F:\escritorio\UTN\PS\CursoInk\Seguridad\bin\Debug\netcoreapp3.1\Dominio.dll
+F:\escritorio\UTN\PS\CursoInk\Seguridad\bin\Debug\netcoreapp3.1\Persistencia.dll
+F:\escritorio\UTN\PS\CursoInk\Seguridad\bin\Debug\netcoreapp3.1\Aplicacion.pdb
+F:\escritorio\UTN\PS\CursoInk\Seguridad\bin\Debug\netcoreapp3.1\Dominio.pdb
+F:\escritorio\UTN\PS\CursoInk\Seguridad\bin\Debug\netcoreapp3.1\Persistencia.pdb
+F:\escritorio\UTN\PS\CursoInk\Seguridad\obj\Debug\netcoreapp3.1\Seguridad.csprojAssemblyReference.cache
+F:\escritorio\UTN\PS\CursoInk\Seguridad\obj\Debug\netcoreapp3.1\Seguridad.AssemblyInfoInputs.cache
+F:\escritorio\UTN\PS\CursoInk\Seguridad\obj\Debug\netcoreapp3.1\Seguridad.AssemblyInfo.cs
+F:\escritorio\UTN\PS\CursoInk\Seguridad\obj\Debug\netcoreapp3.1\Seguridad.csproj.CoreCompileInputs.cache
+F:\escritorio\UTN\PS\CursoInk\Seguridad\obj\Debug\netcoreapp3.1\Seguridad.csproj.CopyComplete
+F:\escritorio\UTN\PS\CursoInk\Seguridad\obj\Debug\netcoreapp3.1\Seguridad.dll
+F:\escritorio\UTN\PS\CursoInk\Seguridad\obj\Debug\netcoreapp3.1\Seguridad.pdb
