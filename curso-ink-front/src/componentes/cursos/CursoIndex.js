@@ -47,7 +47,6 @@ export default function CursoIndex() {
     const suscribirBoton = e => {
         e.preventDefault();
         suscribir(suscripcion).then(response => {
-            console.log(response, suscripto);
             if (response.status === 200 && suscripto) {
                 dispatch({
                     type: "OPEN_SNACKBAR",
@@ -56,7 +55,7 @@ export default function CursoIndex() {
                         mensaje: "suscripción modificada con éxito"
                     }
                 });
-                setSuscripto(false);
+                setTimeout(() => { setSuscripto(false) }, 500);
             }
             else if (response.status === 200 && !suscripto) {
                 dispatch({
@@ -66,7 +65,7 @@ export default function CursoIndex() {
                         mensaje: "suscripción modificada con éxito"
                     }
                 });
-                setSuscripto(true);
+                setTimeout(() => { setSuscripto(true) }, 1000);
             }
             else {
                 dispatch({

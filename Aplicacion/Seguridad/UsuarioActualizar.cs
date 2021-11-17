@@ -96,7 +96,7 @@ namespace Aplicacion.Seguridad
                 var resultadoRoles = await _userManager.GetRolesAsync(usuario);
                 var listaRoles = new List<string>(resultadoRoles);
 
-                var imagenPerfil = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid(usuario.Id)).FirstAsync();
+                var imagenPerfil = await _context.Documento.Where(x => x.ObjetoReferencia == new Guid(usuario.Id)).FirstOrDefaultAsync();
                 ImagenGeneral imagenGeneral = null;
                 if(imagenPerfil != null)
                 {

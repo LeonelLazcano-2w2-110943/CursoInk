@@ -34,7 +34,6 @@ export default function PerfilUsuario() {
         e.preventDefault();
         actualizarUsuario(usuario, dispatch).then(response => {
             if (response.status === 200) {
-                console.log(response.data);
                 dispatch({
                     type: "OPEN_SNACKBAR",
                     openMensaje: {
@@ -43,6 +42,7 @@ export default function PerfilUsuario() {
                     }
                 });
                 window.localStorage.setItem("token_seguridad", response.data.token);
+                resetearForm();
             }
             else {
                 dispatch({
@@ -54,6 +54,14 @@ export default function PerfilUsuario() {
                 });
             }
         });
+    }
+
+    const resetearForm = () => {
+        setUsuario(anterior => ({
+            ...anterior,
+            password: '',
+            ConfirmarPassword: '',
+        }));
     }
 
     useEffect(() => {

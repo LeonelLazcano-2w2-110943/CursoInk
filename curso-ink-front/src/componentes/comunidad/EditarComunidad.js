@@ -1,11 +1,11 @@
 import { Button, Container, Grid, TextareaAutosize, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router';
+import { useParams, withRouter } from 'react-router';
 import { modificarComunidad, obtenerComunidad } from '../../actions/ComunidadAction';
 import { useStateValue } from '../../contexto/Store';
 import style from '../Tool/Style';
 
-export default function EditarComunidad() {
+export const EditarComunidad = (props) => {
     const [{ sesionUsuario }, dispatch] = useStateValue();
 
     const [comunidad, setComunidad] = useState({
@@ -36,6 +36,7 @@ export default function EditarComunidad() {
                         mensaje: "Comunidad editada con éxito"
                     }
                 });
+                props.history.push("/comunidadIndex/" + id);
             }
             else {
                 dispatch({
@@ -88,3 +89,4 @@ export default function EditarComunidad() {
         </Container>
     )
 }
+export default withRouter(EditarComunidad);
