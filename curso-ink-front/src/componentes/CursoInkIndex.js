@@ -156,30 +156,37 @@ export default function CursoInkIndex() {
                         </Carousel>
                     </div>
                 }
-                <Grid style={{ marginTop: "5%" }}>
-                    <Box bgcolor="#6100AE" style={{ color: "white" }}>
-                        <Grid container spacing={5} justifyContent="center">
-                            <Grid item xs={12} md={4}>
-                                <Box borderBottom={1}>Contáctanos</Box>
-                                <Box>
-                                    <Typography href="">soporteCursoInk@soporte.com.ar</Typography>
-                                    <Typography href="">staffCursoInk@staff.com.ar</Typography>
-                                    <Typography href="">denunciasCursoInk@denuncias.com.ar</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} md={4}>
-                                <Box borderBottom={1}>Ayuda</Box>
-                                <Box >
-                                    <Link style={style.link} underline="none" to="/FAQ">Preguntas frecuentes</Link>
-                                </Box>
-                                <Box>
-                                    <Link style={style.link} underline="none" to="/terminosYCondiciones">Términos y condiciones</Link>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </Grid>
             </Container >
+            <Footer />
         </React.Fragment >
     )
 }
+
+const Footer = () => {
+    return (
+        <Grid style={{ marginTop: "5%", width: "100%" }}>
+            <Box bgcolor="#6100AE" style={{ color: "white", padding: "20px 0px" }}>
+                <Grid container justifyContent="center">
+                    <Grid item xs={12} md={4}>
+                        <Box borderBottom={1}>Contáctanos</Box>
+                        <Box>
+                            <Typography href="">soporteCursoInk@soporte.com.ar</Typography>
+                            <Typography href="">staffCursoInk@staff.com.ar</Typography>
+                            <Typography href="">denunciasCursoInk@denuncias.com.ar</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Box borderBottom={1}>Ayuda</Box>
+                        <Box >
+                            <Link style={style.link} underline="none" to="/FAQ">Preguntas frecuentes</Link>
+                        </Box>
+                        <Box>
+                            <Link style={style.link} underline="none" to="/terminosYCondiciones">Términos y condiciones</Link>
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Box>
+        </Grid>
+    )
+}
+
