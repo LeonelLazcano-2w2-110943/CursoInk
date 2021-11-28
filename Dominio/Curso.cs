@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Dominio
@@ -16,5 +17,8 @@ namespace Dominio
         public string UsuarioCreadorId { get; set; }
         public Usuario UsuarioCreador { get; set; }
         public bool Activo { get; set; }
+        public string VideoUrl { get; set; }
+        [Column(TypeName = "decimal(28,4)")]
+        public decimal Precio { get; set; }
     }
 }

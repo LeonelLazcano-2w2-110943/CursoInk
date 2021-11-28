@@ -77,7 +77,8 @@ namespace Aplicacion.Seguridad
                         UserName = usuario.UserName,
                         Email = usuario.Email,
                         Biografia = usuario.Biografia,
-                        Activo = usuario.Activo
+                        Activo = usuario.Activo,
+                        UsuarioId = usuario.Id
                     };
                 }
 

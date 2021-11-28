@@ -70,6 +70,34 @@ const style = {
     loginLink: {
         color: "blue",
         textDecoration: "none"
+    },
+    modal: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 500,
+        bgcolor: 'white',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 2,
+    },
+    modalPayment: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 700,
+        bgcolor: 'white',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 3,
+    },
+    inputPayment: {
+        padding: 5
+    },
+    noContent: {
+        padding: "10%"
     }
 };
 

@@ -94,7 +94,7 @@ const RegistrarUsuario = (props) => {
                         <Grid item xs={12} md={6}>
                             <TextField name="ConfirmarPassword" value={usuario.ConfirmarPassword} onChange={ingresarValoresMemoria} type="password" variant="standard" fullWidth label="Confirme su contraseña" />
                         </Grid><Grid item xs={12} md={12}>
-                            <TextareaAutosize minRows={6} name="Biografia" value={usuario.Biografia} onChange={ingresarValoresMemoria} style={style.textArea} fullWidth label="Confirme su contraseña" />
+                            <TextareaAutosize minRows={6} name="Biografia" value={usuario.Biografia} onChange={ingresarValoresMemoria} style={style.textArea} fullWidth placeholder="Contanos sobre vos" />
                         </Grid>
                     </Grid>
                     <Typography style={{ color: "red" }} variant="caption">*La contraseña debe tener mas de 7 caracteres, tener al menos una letra mayúscula, una minúscula, un número y un caracter especial</Typography>

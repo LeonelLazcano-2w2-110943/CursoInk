@@ -22,6 +22,8 @@ namespace Aplicacion.Cursos
             public Guid CursoId { get; set; }
             public string Titulo { get; set; }
             public string Descripcion { get; set; }
+            public string VideoUrl { get; set; }
+            public decimal Precio { get; set; }
             public List<string> ListaInstructor { get; set; }
 
         }
@@ -32,6 +34,8 @@ namespace Aplicacion.Cursos
             {
                 RuleFor(x => x.Titulo).NotEmpty();
                 RuleFor(x => x.Descripcion).NotEmpty();
+                RuleFor(x => x.VideoUrl).NotEmpty();
+                RuleFor(x => x.Precio).NotEmpty();
             }
         }
 
@@ -60,6 +64,8 @@ namespace Aplicacion.Cursos
 
                 curso.Titulo = request.Titulo ?? curso.Titulo;
                 curso.Descripcion = request.Descripcion ?? curso.Descripcion;
+                curso.VideoUrl = request.VideoUrl ?? curso.VideoUrl;
+                curso.Precio = request.Precio;
                 curso.FechaModificacion = DateTime.Now;
 
                 var resultado = await _context.SaveChangesAsync();

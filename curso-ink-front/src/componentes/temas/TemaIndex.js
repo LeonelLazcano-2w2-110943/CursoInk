@@ -1,4 +1,4 @@
-import { Avatar, Button, Container, Grid, Paper, TextareaAutosize, Typography } from '@material-ui/core'
+import { Avatar, Box, Button, Container, Grid, Modal, Paper, TextareaAutosize, TextField, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react';
 import style from '../Tool/Style';
 import logo from '../../logo.svg';
@@ -7,11 +7,14 @@ import moment from 'moment';
 import { deleteTema, obtenerTema } from '../../actions/TemaAction';
 import { useStateValue } from '../../contexto/Store';
 import { Link } from 'react-router-dom';
-import { deleteComentario, nuevoComentario } from '../../actions/ComentarioAction';
+import { deleteComentario, edicionComentario, nuevoComentario } from '../../actions/ComentarioAction';
 
 export default function TemaIndex() {
     const { id } = useParams();
     const [{ sesionUsuario }, dispatch] = useStateValue();
+    const [editMode, setEditMode] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+    const handleClose = () => setOpenModal(false);
 
     const [tema, setTema] = useState({
         titulo: '',
@@ -93,6 +96,39 @@ export default function TemaIndex() {
         });
     }
 
+    const [temaPost, setTemaPost] = useState({
+        ComentarioTexto: '',
+        TemaId: ''
+    });
+
+    const ingresarValoresMemoriaEdicion = e => {
+        const { name, value } = e.target;
+        setTemaPost(anterior => ({
+            ...anterior,
+            [name]: value
+        }));
+    }
+
+    const editarComentarioBoton = (e, comentarioTexto, temaId) => {
+        e.preventDefault();
+        setEditMode(true);
+        setOpenModal(true);
+        setTemaPost({
+            TemaId: temaId,
+            ComentarioTexto: comentarioTexto
+        });
+    }
+
+    const cancelarEdicionBoton = e => {
+        e.preventDefault();
+        setEditMode(false);
+        setOpenModal(false);
+        setTemaPost({
+            TemaId: '',
+            ComentarioTexto: ''
+        });
+    }
+
     const eliminarComentarioBoton = (e, comentarioId) => {
         e.preventDefault();
         deleteComentario(comentarioId).then(response => {
@@ -116,6 +152,33 @@ export default function TemaIndex() {
             }
         });
     }
+
+    const comentarEdicion = (e, comentario) => {
+        e.preventDefault();
+        edicionComentario(comentario).then(response => {
+            if (response.status === 200) {
+                dispatch({
+                    type: "OPEN_SNACKBAR",
+                    openMensaje: {
+                        open: true,
+                        mensaje: "Comentario modificado con éxito"
+                    }
+                });
+                setOpenModal(false);
+            }
+            else {
+                dispatch({
+                    type: "OPEN_SNACKBAR",
+                    openMensaje: {
+                        open: true,
+                        mensaje: 'Errores al intentar guardar en: ' + Object.keys(response.data.errors)
+                    }
+                });
+            }
+        });
+    }
+
+
     return (
         <Container>
             <div style={style.tema}>
@@ -180,11 +243,13 @@ export default function TemaIndex() {
                         </Grid>
                         <Grid justifyContent="flex-start" item xs zeroMinWidth>
                             <h4 style={{ margin: 0, textAlign: "left" }}>{comentario.alumno}</h4>
-                            <p style={{ textAlign: "left" }}>
-                                {comentario.comentarioTexto}
-                            </p>
-                            <Grid item xs={12} md={11} >
-                                <TextareaAutosize minRows={2} onChange={ingresarValoresMemoria} variant="contained" value={comentario.comentarioTexto} name="ComentarioTexto" style={style.textArea} label="Ingrese un comentario" />
+                            <Grid>
+                                <p style={{ textAlign: "left" }}>
+                                    {comentario.comentarioTexto}
+                                </p>
+                            </Grid>
+                            <Grid style={{ display: "none" }}>
+                                <TextField value={comentario.comentarioId} />
                             </Grid>
                             <p style={{ textAlign: "left", color: "gray" }}>
                                 Enviado {moment(comentario.fechaCreacion).format("DD-MM-YYYY")}
@@ -192,10 +257,10 @@ export default function TemaIndex() {
                             {comentario.alumno === sesionUsuario.usuario.userName &&
                                 <Grid container>
                                     <Grid xs={12} md={1}>
-                                        <Button size="small" color="primary">Editar</Button>
+                                        <Button size="small" color="primary" onClick={(e) => { editarComentarioBoton(e, comentario.comentarioTexto, comentario.comentarioId) }}>Editar</Button>
                                     </Grid>
                                     <Grid xs={12} md={1}>
-                                        <Button size="small" color="primary" type="submit" onClick={(e) => { eliminarComentarioBoton(e, comentario.comentarioId) }}>Eliminar</Button>
+                                        <Button size="small" color="secondary" type="submit" onClick={(e) => { eliminarComentarioBoton(e, comentario.comentarioId) }}>Eliminar</Button>
                                     </Grid>
                                 </Grid>
                             }
@@ -203,9 +268,13 @@ export default function TemaIndex() {
                     </Grid>
                 </Paper>
             )}
+            <h4>Enviá tu comentario</h4>
             <Paper style={{ padding: "40px 20px", marginBottom: "3%" }}>
                 <Grid item xs={12} md={12}>
                     <TextareaAutosize minRows={5} name="ComentarioTexto" onChange={ingresarValoresMemoria} style={style.textArea} placeholder="Escribe un comentario" />
+                </Grid>
+                <Grid item xs={12} md={12} style={{ display: "none" }}>
+                    <TextField name="cursoId" value={tema.temaId} variant="standard" fullWidth />
                 </Grid>
                 <Grid container justifyContent="flex-start">
                     <Grid item xs={12} md={3}>
@@ -215,7 +284,27 @@ export default function TemaIndex() {
                     </Grid>
                 </Grid>
             </Paper>
-
+            <div>
+                <Modal
+                    open={openModal}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={style.modal}>
+                        <Typography component="h1" variant="h6" style={style.titulos}>Editar comentario</Typography>
+                        < TextareaAutosize minRows={3} onChange={ingresarValoresMemoriaEdicion} value={temaPost.ComentarioTexto} variant="contained" name="ComentarioTexto" style={style.textArea} label="Ingrese un comentario" />
+                        <Grid container spacing={2} style={{ marginTop: "2%" }}>
+                            <Grid item xs={12} md={3}>
+                                <Button size="small" onClick={cancelarEdicionBoton} color="secondary">Cancelar</Button>
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <Button size="small" onClick={(e) => { comentarEdicion(e, temaPost) }} color="primary">Comentar</Button>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Modal>
+            </div>
         </Container >
     )
 }

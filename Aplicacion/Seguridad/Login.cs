@@ -80,7 +80,9 @@ namespace Aplicacion.Seguridad
                             Activo = usuario.Activo,
                             Imagen = null,
                             Biografia = usuario.Biografia,
-                            ImagenPerfil = imagenCliente
+                            ImagenPerfil = imagenCliente,
+                            UsuarioId = usuario.Id,
+                            ListaRoles = listaRoles
                         };
                     }
                     else
@@ -93,7 +95,9 @@ namespace Aplicacion.Seguridad
                             Email = usuario.Email,
                             Activo = usuario.Activo,
                             Imagen = null,
-                            Biografia = usuario.Biografia
+                            Biografia = usuario.Biografia,
+                            UsuarioId = usuario.Id,
+                            ListaRoles = listaRoles
                         };
                     }
                 }

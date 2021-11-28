@@ -73,7 +73,10 @@ export default function CursoInkIndex() {
                                         </Grid>
                                         <Grid xs={8} md={7} style={{ marginLeft: "2%" }}>
                                             <Typography component="h3" variant="h3">{curso.titulo}</Typography>
-                                            <Typography component="h6" variant="h6">{curso.descripcion}</Typography>
+                                            <Typography component="h6" variant="h6">
+                                                {curso.descripcion.length > 200 &&
+                                                    curso.descripcion.substring(0, 200)
+                                                }...</Typography>
                                             <p>Comentarios: {curso.cantidadComentarios}</p>
                                             <p>Suscriptores totales: {curso.cantidadSuscriptores}</p>
                                         </Grid>

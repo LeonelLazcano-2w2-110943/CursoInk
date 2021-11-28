@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistencia;
 
 namespace Persistencia.Migrations
 {
     [DbContext(typeof(CursoInkContext))]
-    partial class CursoInkContextModelSnapshot : ModelSnapshot
+    [Migration("20211126235350_AgregarColumnaVideo")]
+    partial class AgregarColumnaVideo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,26 +55,6 @@ namespace Persistencia.Migrations
                     b.HasIndex("TemaId");
 
                     b.ToTable("Comentario");
-                });
-
-            modelBuilder.Entity("Dominio.Compra", b =>
-                {
-                    b.Property<Guid>("CompraId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Curso")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FechaCompra")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CompraId");
-
-                    b.ToTable("Compra");
                 });
 
             modelBuilder.Entity("Dominio.Comunidad", b =>
@@ -126,9 +108,6 @@ namespace Persistencia.Migrations
 
                     b.Property<DateTime?>("FechaModificacion")
                         .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Precio")
-                        .HasColumnType("decimal(28,4)");
 
                     b.Property<string>("Titulo")
                         .HasColumnType("nvarchar(max)");

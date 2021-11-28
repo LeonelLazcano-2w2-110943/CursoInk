@@ -18,7 +18,8 @@ namespace Aplicacion.Comentarios
     {
         public class Ejecuta : IRequest
         {
-            public Guid ComentarioId { get; set; }
+            public Guid? ComentarioId { get; set; }
+            public Guid? TemaId { get; set; }
             public string ComentarioTexto { get; set; }
         }
 
@@ -39,11 +40,20 @@ namespace Aplicacion.Comentarios
             }
             public async Task<Unit> Handle(Ejecuta request, CancellationToken cancellationToken)
             {
-                var comentario = await _context.Comentario.FindAsync(request.ComentarioId);
-                if (comentario == null) throw new ManejadorException(HttpStatusCode.BadRequest, new { mensaje = "No se pudo encontrar el comentario" });
+                if (request.ComentarioId != null) {
+                    var comentario = await _context.Comentario.FindAsync(request.ComentarioId);
+                    if (comentario == null) throw new ManejadorException(HttpStatusCode.BadRequest, new { mensaje = "No se pudo encontrar el comentarioen el curso" });
+                    comentario.ComentarioTexto = request.ComentarioTexto;
+                    comentario.FechaModificacion = DateTime.Now;
+                }
 
-                comentario.ComentarioTexto = request.ComentarioTexto;
-                comentario.FechaModificacion = DateTime.Now;
+                if (request.TemaId != null)
+                {
+                    var comentario = await _context.Comentario.FindAsync(request.TemaId);
+                    if (comentario == null) throw new ManejadorException(HttpStatusCode.BadRequest, new { mensaje = "No se pudo encontrar el comentario" });
+                    comentario.ComentarioTexto = request.ComentarioTexto;
+                    comentario.FechaModificacion = DateTime.Now;
+                }
 
                 var resultado = await _context.SaveChangesAsync();
                 if (resultado > 0) return Unit.Value;

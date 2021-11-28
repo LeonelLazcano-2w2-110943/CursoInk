@@ -28,5 +28,6 @@ namespace Persistencia
         public DbSet<Tema> Tema { get; set; }
         public DbSet<Comunidad> Comunidad { get; set; }
         public DbSet<Documento> Documento { get; set; }
+        public DbSet<Compra> Compra { get; set; }
     }
 }

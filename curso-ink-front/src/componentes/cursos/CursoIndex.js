@@ -1,16 +1,20 @@
-import { Avatar, Button, CardMedia, Container, Grid, IconButton, Paper, Popover, TextareaAutosize, TextField, Typography } from '@material-ui/core'
+import { Avatar, Box, Button, CardMedia, Container, Divider, Grid, IconButton, Modal, Paper, Popover, TextareaAutosize, TextField, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react';
 import style from '../Tool/Style';
-import cursoImagen from '../../standard-img/courseintroimage.jpg';
 import logo from '../../logo.svg';
 import { deleteCurso, obtenerCurso, suscribir } from '../../actions/CursoAction';
-import { useParams, withRouter } from 'react-router';
+import { useParams } from 'react-router';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { useStateValue } from '../../contexto/Store';
 import { deleteComentario, edicionComentario, nuevoComentario } from '../../actions/ComentarioAction';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
+import EmbedVideo from '../Tool/EmbedVideo';
+import Cards from 'react-credit-cards';
+import 'react-credit-cards/es/styles-compiled.css';
+import cardValidator, { number } from 'card-validator';
+import { nuevaCompra } from '../../actions/CompraAction';
 
 const useStyles = makeStyles((theme) => ({
     popover: {
@@ -23,61 +27,56 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function CursoIndex() {
+    //states
     const classes = useStyles();
     const { id } = useParams();
     const [{ sesionUsuario }, dispatch] = useStateValue();
+    const [openModal, setOpenModal] = useState(false);
+    const [modalCreditCard, setModalCreditCard] = useState(false);
+    const handleClose = () => setOpenModal(false);
+    const handleCloseCreditCard = () => {
+        setCreditCard({
+            cvc: '',
+            expiry: '',
+            focus: '',
+            name: '',
+            number: '',
+        });
+        setModalCreditCard(false);
+    };
     const [curso, setCurso] = useState({
         titulo: '',
         descripcion: '',
         fechaCreacion: '',
-        instructores: [],
+        instructores: '',
         usuarios: [],
         comentarios: [],
         cursoId: id,
-        activo: ''
+        activo: '',
+        videoUrl: ''
     });
     const [suscripcion, setSuscripcion] = useState({
         UsuarioId: sesionUsuario.usuario.usuarioId,
         CursoId: curso.cursoId
-    })
-
-    const [editMode, setEditMode] = useState(false);
+    });
     const [suscripto, setSuscripto] = useState(false);
-
-    const suscribirBoton = e => {
-        e.preventDefault();
-        suscribir(suscripcion).then(response => {
-            if (response.status === 200 && suscripto) {
-                dispatch({
-                    type: "OPEN_SNACKBAR",
-                    openMensaje: {
-                        open: true,
-                        mensaje: "suscripción modificada con éxito"
-                    }
-                });
-                setTimeout(() => { setSuscripto(false) }, 500);
-            }
-            else if (response.status === 200 && !suscripto) {
-                dispatch({
-                    type: "OPEN_SNACKBAR",
-                    openMensaje: {
-                        open: true,
-                        mensaje: "suscripción modificada con éxito"
-                    }
-                });
-                setTimeout(() => { setSuscripto(true) }, 1000);
-            }
-            else {
-                dispatch({
-                    type: "OPEN_SNACKBAR",
-                    openMensaje: {
-                        open: true,
-                        mensaje: 'Errores al intentar guardar en: ' + Object.keys(response.data.errors)
-                    }
-                });
-            }
-        });
-    }
+    const [comentario, setComentario] = useState({
+        Alumno: sesionUsuario.usuario.userName,
+        ComentarioTexto: '',
+        CursoId: curso.cursoId
+    });
+    const [comentarioPost, setComentarioPost] = useState({
+        ComentarioTexto: '',
+        ComentarioId: ''
+    });
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [creditCard, setCreditCard] = useState({
+        cvc: '',
+        expiry: '',
+        focus: '',
+        name: '',
+        number: '',
+    });
 
     useEffect(() => {
         obtenerCurso(id).then(response => {
@@ -90,30 +89,90 @@ export default function CursoIndex() {
         });
     }, [curso])
 
-    const [comentario, setComentario] = useState({
-        Alumno: sesionUsuario.usuario.userName,
-        ComentarioTexto: '',
-        CursoId: curso.cursoId
-    });
+    //actions
 
-    const ingresarValoresMemoria = e => {
-        const { name, value } = e.target;
-        setComentario(anterior => ({
-            ...anterior,
-            [name]: value
-        }));
+    const realizarCompra = e => {
+        e.preventDefault();
+        var valid = require("card-validator");
+        var numero = valid.number(creditCard.number);
+        var fecha = valid.expirationDate(creditCard.expiry);
+        var nombre = valid.cardholderName(creditCard.name);
+        var codigo = valid.cvv(creditCard.cvc);
+        var error = "Errores: ";
+        if (!creditCard.number.trim() || !creditCard.expiry.trim() || !creditCard.name.trim() || !creditCard.cvc.trim()) {
+            dispatch({
+                type: "OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje: error += "Quedan campos por rellenar"
+                }
+            });
+        }
+        if (!numero.isValid) {
+            dispatch({
+                type: "OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje: error += " - Número de tarjeta inválido"
+                }
+            });
+        }
+        if (!fecha.isValid) {
+            dispatch({
+                type: "OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje: error += " - Fecha de tarjeta inválido"
+                }
+            });
+        }
+        if (!nombre.isValid) {
+            dispatch({
+                type: "OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje: error += " - Nombre de tarjeta inválido"
+                }
+            });
+        }
+        if (!codigo.isValid) {
+            dispatch({
+                type: "OPEN_SNACKBAR",
+                openMensaje: {
+                    open: true,
+                    mensaje: error += " - CVC de tarjeta inválido"
+                }
+            });
+        }
+        if (numero.isValid && fecha.isValid && nombre.isValid && codigo.isValid) {
+            handleCloseCreditCard();
+            suscribir(suscripcion).then(response => {
+                if (response.status === 200) {
+                    dispatch({
+                        type: "OPEN_SNACKBAR",
+                        openMensaje: {
+                            open: true,
+                            mensaje: "Curso adquirido con éxito! Bienvenido!"
+                        }
+                    });
+                    setSuscripto(true);
+                }
+            });
+            const compra = {
+                Curso: curso.titulo,
+                UserName: sesionUsuario.usuario.userName
+            }
+            nuevaCompra(compra).then(response => {
+                if (response.status === 200) {
+                    console.log("compra registrada");
+                }
+            });
+        }
     }
 
-    const [comentarioPost, setComentarioPost] = useState({
-        ComentarioTexto: '',
-        ComentarioId: ''
-    });
-    const ingresarValoresMemoriaEdicion = e => {
-        const { name, value } = e.target;
-        setComentarioPost(anterior => ({
-            ...anterior,
-            [name]: value
-        }));
+    const suscribirBoton = e => {
+        e.preventDefault();
+        setModalCreditCard(true);
     }
 
     const comentarBoton = e => {
@@ -166,7 +225,7 @@ export default function CursoIndex() {
 
     const editarComentarioBoton = (e, comentarioTexto, comentarioId) => {
         e.preventDefault();
-        setEditMode(true);
+        setOpenModal(true);
         setComentarioPost({
             ComentarioId: comentarioId,
             ComentarioTexto: comentarioTexto
@@ -175,7 +234,7 @@ export default function CursoIndex() {
 
     const cancelarEdicionBoton = e => {
         e.preventDefault();
-        setEditMode(false);
+        setOpenModal(false);
         setComentarioPost({
             ComentarioId: '',
             ComentarioTexto: ''
@@ -206,16 +265,6 @@ export default function CursoIndex() {
         });
     }
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-
-    const handlePopoverOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handlePopoverClose = () => {
-        setAnchorEl(null);
-    };
-
     const comentarEdicion = (e, comentario) => {
         e.preventDefault();
         edicionComentario(comentario).then(response => {
@@ -227,8 +276,7 @@ export default function CursoIndex() {
                         mensaje: "Comentario modificado con éxito"
                     }
                 });
-                setEditMode(false);
-
+                setOpenModal(false);
             }
             else {
                 dispatch({
@@ -242,83 +290,49 @@ export default function CursoIndex() {
         });
     }
 
-    const open = Boolean(anchorEl);
+    //inputs
+
+    const ingresarValoresMemoria = e => {
+        const { name, value } = e.target;
+        setComentario(anterior => ({
+            ...anterior,
+            [name]: value
+        }));
+    }
+
+    const ingresarValoresMemoriaEdicion = e => {
+        const { name, value } = e.target;
+        setComentarioPost(anterior => ({
+            ...anterior,
+            [name]: value
+        }));
+    }
+
+    const handleInputFocus = (e) => {
+        const { name, value } = e.target;
+
+        setCreditCard(anterior => ({
+            ...anterior,
+            focus: name
+        }));
+    }
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+
+        setCreditCard(anterior => ({
+            ...anterior,
+            [name]: value
+        }));
+    }
+
     return (
         <Container>
             <div style={style.paper}>
                 <Typography component="h1" variant="h4" style={style.titulos} style={{ paddingBottom: "10px" }}>
                     {curso.titulo}
                 </Typography>
-                {suscripto ?
-                    <div>
-                        <IconButton
-                            aria-owns={open ? 'mouse-over-popover' : undefined}
-                            aria-haspopup="true"
-                            onMouseEnter={handlePopoverOpen}
-                            onMouseLeave={handlePopoverClose}
-                            variant="text"
-                            size="small"
-                            onClick={suscribirBoton}
-                        >
-                            <Avatar style={style.avatarNoSub}>
-                                <AddIcon style={style.sub} />
-                            </Avatar>
-                        </IconButton>
-                        <Popover
-                            id="mouse-over-popover"
-                            className={classes.popover}
-                            classes={{
-                                paper: classes.paper,
-                            }}
-                            open={open}
-                            anchorEl={anchorEl}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            onClose={handlePopoverClose}
-                            disableRestoreFocus
-                        >
-                            <Typography>Desuscribirse</Typography>
-                        </Popover>
-                    </div>
-                    :
-                    <div>
-                        <IconButton
-                            aria-owns={open ? 'mouse-over-popover' : undefined}
-                            aria-haspopup="true"
-                            onMouseEnter={handlePopoverOpen}
-                            onMouseLeave={handlePopoverClose}
-                            variant="text"
-                            size="small"
-                            onClick={suscribirBoton}
-                        >
-                            <Avatar style={style.avatarSub}>
-                                <AddIcon style={style.sub} />
-                            </Avatar>
-                        </IconButton>
-                        <Popover
-                            id="mouse-over-popover"
-                            className={classes.popover}
-                            classes={{
-                                paper: classes.paper,
-                            }}
-                            open={open}
-                            anchorEl={anchorEl}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            onClose={handlePopoverClose}
-                            disableRestoreFocus
-                        >
-                            <Typography>Suscribirse</Typography>
-                        </Popover>
-                    </div>
-                }
-                <Typography component="h1" variant="caption" style={{ color: "gray" }}>
-                    creado: {moment(curso.fechaCreacion).format("DD-MM-YYYY")}
-                </Typography>
+
                 {curso.instructores != null &&
                     curso.instructores.nombreCompleto == sesionUsuario.usuario.nombreCompleto &&
                     <Grid container justifyContent="center" style={{ marginBottom: "1%" }}>
@@ -338,17 +352,48 @@ export default function CursoIndex() {
                         </Grid>
                     </Grid>
                 }
-                <Grid container spacing={0}>
-                    <CardMedia variant="outlined"
-                        component="img"
-                        image={curso.imagenCurso || cursoImagen}
-                        title="curso imagen"
-                    />
-                    <p>
-                        Descripcion: {curso.descripcion}
-                    </p>
-                </Grid>
+                {sesionUsuario.usuario.userName === curso.instructores.userName ?
+                    <div>
+                        <Grid container justifyContent="center">
+                            <EmbedVideo url={curso.videoUrl} />
+                        </Grid>
+                        <Grid container justifyContent="center">
+                            <Typography component="h1" variant="caption" style={{ color: "gray" }}>
+                                creado: {moment(curso.fechaCreacion).format("DD-MM-YYYY")}
+                            </Typography>
+                        </Grid>
+                    </div>
+                    :
+                    suscripto ?
+                        <div>
+                            <Grid container justifyContent="center">
+                                <EmbedVideo url={curso.videoUrl} />
+                            </Grid>
+                            <Grid container justifyContent="center">
+                                <Typography component="h1" variant="caption" style={{ color: "gray" }}>
+                                    creado: {moment(curso.fechaCreacion).format("DD-MM-YYYY")}
+                                </Typography>
+                            </Grid>
+                        </div>
+                        :
+                        <Grid style={style.noContent}>
+                            <Grid container>
+                                <Typography component="h1" variant="h4">
+                                    Para poder ver el contenido del curso primero debes adquirirlo
+                                </Typography>
+                            </Grid>
+                            <Grid container justifyContent="center">
+                                <Button style={style.form} variant="contained" color="primary" onClick={suscribirBoton}>Comprar</Button>
+                            </Grid>
+                        </Grid>
+                }
             </div>
+            <p>
+                <strong>Descripcion:</strong> {curso.descripcion}
+            </p>
+            <p>
+                <strong>Comentarios:</strong> {curso.comentarios.length}
+            </p>
             {curso.comentarios.map((comentario) =>
                 comentario.activo &&
                 <Paper style={{ padding: "5px 5px", marginBottom: "3%" }}>
@@ -360,13 +405,8 @@ export default function CursoIndex() {
                             <h4 style={{ margin: 0, textAlign: "left" }}>{comentario.alumno}</h4>
                             <Grid>
                                 <p style={{ textAlign: "left" }}>
-                                    {editMode ? "" : comentario.comentarioTexto}
+                                    {comentario.comentarioTexto}
                                 </p>
-                            </Grid>
-                            <Grid item xs={12} md={11}>
-                                {editMode &&
-                                    < TextareaAutosize autoFocus minRows={2} onChange={ingresarValoresMemoriaEdicion} value={comentarioPost.ComentarioTexto} variant="contained" name="ComentarioTexto" style={style.textArea} label="Ingrese un comentario" />
-                                }
                             </Grid>
                             <Grid style={{ display: "none" }}>
                                 <TextField value={comentario.comentarioId} />
@@ -376,23 +416,12 @@ export default function CursoIndex() {
                             </p>
                             {comentario.alumno === sesionUsuario.usuario.userName &&
                                 <Grid container>
-                                    {editMode ?
-                                        <Grid xs={12} md={1}>
-                                            <Button size="small" onClick={cancelarEdicionBoton} color="primary">Cancelar</Button>
-                                        </Grid>
-                                        :
-                                        <Grid xs={12} md={1}>
-                                            <Button size="small" color="primary" onClick={(e) => { editarComentarioBoton(e, comentario.comentarioTexto, comentario.comentarioId) }}>Editar</Button>
-                                        </Grid>
-                                    }
+                                    <Grid xs={12} md={1}>
+                                        <Button size="small" color="primary" onClick={(e) => { editarComentarioBoton(e, comentario.comentarioTexto, comentario.comentarioId) }}>Editar</Button>
+                                    </Grid>
                                     <Grid xs={12} md={1}>
                                         <Button size="small" color="secondary" type="submit" onClick={(e) => { eliminarComentarioBoton(e, comentario.comentarioId) }}>Eliminar</Button>
                                     </Grid>
-                                    {editMode &&
-                                        <Grid xs={12} md={1}>
-                                            <Button size="small" onClick={(e) => { comentarEdicion(e, comentarioPost) }} color="primary">Comentar</Button>
-                                        </Grid>
-                                    }
                                 </Grid>
                             }
                         </Grid>
@@ -415,7 +444,121 @@ export default function CursoIndex() {
                     </Grid>
                 </Grid>
             </Paper>
+            <div>
+                <Modal
+                    open={openModal}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={style.modal}>
+                        <Typography component="h1" variant="h6" style={style.titulos}>Editar comentario</Typography>
+                        < TextareaAutosize minRows={3} onChange={ingresarValoresMemoriaEdicion} value={comentarioPost.ComentarioTexto} variant="contained" name="ComentarioTexto" style={style.textArea} label="Ingrese un comentario" />
+                        <Grid container spacing={2} style={{ marginTop: "2%" }}>
+                            <Grid item xs={12} md={3}>
+                                <Button size="small" onClick={cancelarEdicionBoton} color="secondary">Cancelar</Button>
+                            </Grid>
+                            <Grid item xs={12} md={3}>
+                                <Button size="small" onClick={(e) => { comentarEdicion(e, comentarioPost) }} color="primary">Comentar</Button>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Modal>
+            </div>
+            <Grid>
+                <Modal
+                    open={modalCreditCard}
+                    onClose={handleCloseCreditCard}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={style.modalPayment}>
+                        <Grid container spacing={3} style={{ marginBottom: "2%" }}>
+                            <Grid xs={12} md={6}>
+                                <Cards
+                                    cvc={creditCard.cvc}
+                                    expiry={creditCard.expiry}
+                                    focused={creditCard.focus}
+                                    name={creditCard.name}
+                                    number={creditCard.number}
+                                />
+                            </Grid>
+                            <Grid xs={12} md={6}>
+                                <Grid container>
+                                    <TextField
+                                        name="number"
+                                        type="tel"
+                                        value={creditCard.number}
+                                        onChange={handleInputChange}
+                                        variant="standard"
+                                        fullWidth
+                                        label="Número"
+                                        onFocus={handleInputFocus}
+                                    />
+                                </Grid>
+                                <Grid container>
+                                    <TextField
+                                        name="name"
+                                        value={creditCard.name}
+                                        onChange={handleInputChange}
+                                        variant="standard"
+                                        fullWidth
+                                        label="Nombre que figura en la tarjeta"
+                                        onFocus={handleInputFocus}
+                                    />
+                                </Grid>
+                                <Grid container >
+                                    <Grid xs={12} md={8}>
+                                        <TextField
+                                            name="expiry"
+                                            value={creditCard.expiry}
+                                            onChange={handleInputChange}
+                                            variant="standard"
+                                            fullWidth
+                                            label="Fecha de expiración"
+                                            onFocus={handleInputFocus}
+                                        />
+                                    </Grid>
+                                    <Grid xs={12} md={4}>
+                                        <TextField
+                                            name="cvc"
+                                            value={creditCard.cvc}
+                                            onChange={handleInputChange}
+                                            variant="standard"
+                                            fullWidth
+                                            label="cvc"
+                                            onFocus={handleInputFocus}
+                                        />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
 
+                        </Grid>
+                        <Divider />
+                        <br />
+                        <Grid container>
+                            <Grid xs={12} md={12}>
+                                <Typography component="h1" variant="h4" align="center" style={style.titulos}>Estas a punto de comprar...</Typography>
+                            </Grid>
+                            <Grid xs={12} md={12}>
+                                <Typography component="h1" variant="subtitle1" >Curso: {curso.titulo}</Typography>
+                            </Grid>
+                            <Grid xs={12} md={12}>
+                                <Typography component="h1" variant="subtitle1" >Precio: {"$" + curso.precio}</Typography>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={2} justifyContent="center">
+                            <Grid item xs={12} md={2}>
+                                <Button size="small" onClick={handleCloseCreditCard} variant="contained" style={style.form} color="secondary">Cancelar</Button>
+                            </Grid>
+                            <Grid item xs={12} md={2}>
+                                <Button size="small" onClick={realizarCompra} variant="contained" style={style.form} color="primary">Comprar</Button>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Modal>
+            </Grid>
         </Container >
     )
 }
+

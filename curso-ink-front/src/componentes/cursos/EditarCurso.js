@@ -12,7 +12,8 @@ export const EditarCurso = (props) => {
     const [curso, setCurso] = useState({
         cursoId: '',
         titulo: '',
-        descripcion: ''
+        descripcion: '',
+        videoUrl: ''
     });
 
     const ingresarValoresMemoria = e => {
@@ -69,6 +70,12 @@ export const EditarCurso = (props) => {
                     </Grid>
                     <Grid item xs={12} md={12}>
                         <TextField name="titulo" value={curso.titulo} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Titulo" />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <TextField name="precio" type="number" value={curso.precio} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Precio" />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <TextField name="videoUrl" value={curso.videoUrl} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="url del video" />
                     </Grid>
                     <Grid item xs={12} md={12}>
                         <TextareaAutosize minRows={6} name="descripcion" value={curso.descripcion} onChange={ingresarValoresMemoria} style={style.textArea} label="Descripcion" />

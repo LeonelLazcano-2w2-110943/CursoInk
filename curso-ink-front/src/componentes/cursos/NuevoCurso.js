@@ -14,7 +14,9 @@ export default function NuevoCurso() {
     const [curso, setCurso] = useState({
         Titulo: '',
         Descripcion: '',
-        UsuarioCreadorId: sesionUsuario.usuario.usuarioId
+        UsuarioCreadorId: sesionUsuario.usuario.usuarioId,
+        CursoId: '',
+        VideoUrl: ''
     });
 
     const resetearForm = () => {
@@ -22,6 +24,8 @@ export default function NuevoCurso() {
         setCurso({
             Titulo: '',
             Descripcion: '',
+            VideoUrl: '',
+            Precio: 0
         });
     }
 
@@ -49,7 +53,10 @@ export default function NuevoCurso() {
         const objetoCurso = {
             titulo: curso.Titulo,
             descripcion: curso.Descripcion,
-            cursoId: cursoId
+            UsuarioCreadorId: curso.UsuarioCreadorId,
+            cursoId: cursoId,
+            videoUrl: curso.VideoUrl,
+            precio: curso.Precio
         }
         let objetoImagen = null;
         if (imagen) {
@@ -103,6 +110,12 @@ export default function NuevoCurso() {
                     <Grid container spacing={2}>
                         <Grid item xs={12} md={12}>
                             <TextField name="Titulo" value={curso.Titulo} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Ingrese el título del curso" />
+                        </Grid>
+                        <Grid item xs={12} md={12}>
+                            <TextField name="Precio" type="number" value={curso.Precio} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Ingrese el precio" />
+                        </Grid>
+                        <Grid item xs={12} md={12}>
+                            <TextField name="VideoUrl" value={curso.VideoUrl} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Ingrese la url del video" />
                         </Grid>
                         <Grid item xs={12} md={12}>
                             <TextareaAutosize minRows={6} name="Descripcion" value={curso.Descripcion} onChange={ingresarValoresMemoria} style={style.textArea} placeholder="Ingrese la descripción del curso" />

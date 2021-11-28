@@ -48,7 +48,7 @@ function App() {
             <Snackbar
                 anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
                 open={openSnackBar ? openSnackBar.open : false}
-                autoHideDuration={3000}
+                autoHideDuration={10000}
                 ContentProps={{ "aria-describedby": "message-id" }}
                 message={
                     <span id="message-id">{openSnackBar ? openSnackBar.mensaje : ""}</span>
@@ -70,25 +70,25 @@ function App() {
                     <AppNavBar />
                     <Grid container>
                         <Switch>
-                            <Route exact path="/CursoInkIndex" component={CursoInkIndex} />
+                            <RutaSegura exact path="/CursoInkIndex" component={CursoInkIndex} />
                             <Route exact path="/auth/login" component={Login} />
                             <Route exact path="/auth/registrar" component={RegistrarUsuario} />
-                            <Route exact path="/nuevoCurso" component={NuevoCurso} />
-                            <Route exact path="/editarCurso/:id" component={EditarCurso} />
-                            <Route exact path="/cursoIndex/:id" component={CursoIndex} />
-                            <Route exact path="/nuevaComunidad" component={NuevaComunidad} />
-                            <Route exact path="/editarComunidad/:id" component={EditarComunidad} />
-                            <Route exact path="/listaComunidades/" component={ListaComunidades} />
-                            <Route exact path="/comunidadIndex/:id" component={ComunidadIndex} />
-                            <Route exact path="/nuevoTema/:id" component={NuevoTema} />
-                            <Route exact path="/editarTema/:id" component={EditarTema} />
-                            <Route exact path="/listaTemas/" component={ListaTemas} />
-                            <Route exact path="/temaIndex/:id" component={TemaIndex} />
+                            <RutaSegura exact path="/nuevoCurso" component={NuevoCurso} />
+                            <RutaSegura exact path="/editarCurso/:id" component={EditarCurso} />
+                            <RutaSegura exact path="/cursoIndex/:id" component={CursoIndex} />
+                            <RutaSegura exact path="/nuevaComunidad" component={NuevaComunidad} />
+                            <RutaSegura exact path="/editarComunidad/:id" component={EditarComunidad} />
+                            <RutaSegura exact path="/listaComunidades/" component={ListaComunidades} />
+                            <RutaSegura exact path="/comunidadIndex/:id" component={ComunidadIndex} />
+                            <RutaSegura exact path="/nuevoTema/:id" component={NuevoTema} />
+                            <RutaSegura exact path="/editarTema/:id" component={EditarTema} />
+                            <RutaSegura exact path="/listaTemas/" component={ListaTemas} />
+                            <RutaSegura exact path="/temaIndex/:id" component={TemaIndex} />
                             <Route exact path="/FAQ" component={FAQ} />
                             <Route exact path="/terminosYCondiciones" component={TerminosYCondiciones} />
-                            <Route exact path="/nuevoRol" component={RolNuevo} />
-                            <Route exact path="/listaRoles" component={ListaRol} />
-                            <Route exact path="/editarRol/:id" component={EditarRol} />
+                            <RutaSegura exact path="/nuevoRol" component={RolNuevo} />
+                            <RutaSegura exact path="/listaRoles" component={ListaRol} />
+                            <RutaSegura exact path="/editarRol/:id" component={EditarRol} />
                             <RutaSegura
                                 exact
                                 path="/auth/perfil"

@@ -6,9 +6,10 @@ import { paginacionCurso } from '../../actions/CursoAction';
 import ControlTyping from '../Tool/ControlTyping';
 import style from '../Tool/Style';
 import { Link } from 'react-router-dom';
+import { useStateValue } from '../../contexto/Store';
 
 export default function PaginadorCurso() {
-
+    const [{ sesionUsuario }, dispatch] = useStateValue();
     const [textoBusquedaCurso, setTextoBusquedaCurso] = useState("");
     const typingBuscadorTexto = ControlTyping(textoBusquedaCurso, 900);
 
@@ -45,7 +46,7 @@ export default function PaginadorCurso() {
             const response = await paginacionCurso(objetoPaginadorRequest);
             setPaginadorResponse(response.data);
         }
-
+        console.log(paginadorResponse);
         obtenerListaCurso();
 
 
@@ -89,22 +90,29 @@ export default function PaginadorCurso() {
                                     <TableCell align="left">Título</TableCell>
                                     <TableCell align="left">Descripcion</TableCell>
                                     <TableCell align="left">Fecha de publicación</TableCell>
+                                    <TableCell align="left">Precio</TableCell>
+                                    <TableCell align="left">Autor</TableCell>
                                     <TableCell align="left">Link</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {!paginadorResponse.listaRecordsCurso ? null :
                                     paginadorResponse.listaRecordsCurso.map((curso) => (
-                                        <TableRow key={curso.cursoId}>
+                                        curso.activo &&
+                                        <TableRow key={curso.cursoId} component={Link} to={"/cursoIndex/" + curso.cursoId} style={style.cardLink}>
                                             <TableCell align="left">{curso.titulo}</TableCell>
-                                            <TableCell align="left">{curso.descripcion}</TableCell>
+                                            <TableCell align="left">{
+                                                curso.descripcion.length > 200 ?
+                                                    curso.descripcion.substring(0, 200) + "..."
+                                                    :
+                                                    curso.descripcion
+                                            }</TableCell>
                                             <TableCell align="left">{(new Date(curso.fechaCreacion)).toLocaleDateString()}</TableCell>
+                                            <TableCell align="left">{"$" + curso.precio}</TableCell>
+                                            <TableCell align="left">{curso.instructores.userName}</TableCell>
                                             <TableCell align="left">
-                                                <Button component={Link} size="small" color="primary" to={"/editarCurso/" + curso.cursoId}>
-                                                    Editar
-                                                </Button>
                                                 <Button component={Link} size="small" color="primary" to={"/cursoIndex/" + curso.cursoId}>
-                                                    Ver
+                                                    Ingresar
                                                 </Button>
                                             </TableCell>
                                         </TableRow>
