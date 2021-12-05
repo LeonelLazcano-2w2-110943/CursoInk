@@ -43,7 +43,7 @@ export const EditarComunidad = (props) => {
                     type: "OPEN_SNACKBAR",
                     openMensaje: {
                         open: true,
-                        mensaje: 'Errores al intentar guardar en: ' + Object.keys(response.data.errors)
+                        mensaje: 'Errores al intentar guardar: ' + Object.values(response.data.errors)
                     }
                 });
             }
@@ -69,7 +69,7 @@ export const EditarComunidad = (props) => {
                         <TextField name="comunidadId" value={comunidad.comunidadId} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="cursoId" />
                     </Grid>
                     <Grid item xs={12} md={12}>
-                        <TextField name="nombre" value={comunidad.nombre} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Titulo" />
+                        <TextField name="nombre" value={comunidad.nombre} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Nombre" />
                     </Grid>
                     <Grid item xs={12} md={12}>
                         <TextareaAutosize minRows={6} name="descripcion" value={comunidad.descripcion} onChange={ingresarValoresMemoria} style={style.textArea} label="Descripcion" />

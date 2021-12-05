@@ -33,7 +33,16 @@ export default function PerfilUsuario() {
     const guardarUsuario = e => {
         e.preventDefault();
         actualizarUsuario(usuario, dispatch).then(response => {
-            if (response.status === 200) {
+            if (usuario.password !== usuario.ConfirmarPassword) {
+                dispatch({
+                    type: "OPEN_SNACKBAR",
+                    openMensaje: {
+                        open: true,
+                        mensaje: 'Las contraseñas no coinciden'
+                    }
+                });
+            }
+            else if (response.status === 200) {
                 dispatch({
                     type: "OPEN_SNACKBAR",
                     openMensaje: {
@@ -49,7 +58,7 @@ export default function PerfilUsuario() {
                     type: "OPEN_SNACKBAR",
                     openMensaje: {
                         open: true,
-                        mensaje: 'Errores al intentar guardar en: ' + Object.keys(response.data.errors)
+                        mensaje: 'Errores al intentar guardar en: ' + Object.values(response.data.errors)
                     }
                 });
             }

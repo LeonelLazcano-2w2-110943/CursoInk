@@ -4,7 +4,10 @@ export const nuevoTema = (id, tema) => {
     return new Promise((resolve, eject) => {
         HttpCliente.post('/temas/' + id, tema).then(response => {
             resolve(response);
-        });
+        })
+            .catch(error => {
+                resolve(error.response);
+            })
     });
 }
 
@@ -20,7 +23,10 @@ export const modificarTema = (id, tema) => {
     return new Promise((resolve, eject) => {
         HttpCliente.put('/temas/' + id, tema).then(response => {
             resolve(response);
-        });
+        })
+            .catch(error => {
+                resolve(error.response);
+            })
     });
 }
 
@@ -35,6 +41,17 @@ export const listaTemas = () => {
 export const deleteTema = (id) => {
     return new Promise((resolve, eject) => {
         HttpCliente.delete('/temas/' + id).then(response => {
+            resolve(response);
+        })
+            .catch(error => {
+                resolve(error.response);
+            })
+    });
+}
+
+export const listaTemasPorUsuario = () => {
+    return new Promise((resolve, eject) => {
+        HttpCliente.get('/temas/TemaPorUsuario').then(response => {
             resolve(response);
         })
     });

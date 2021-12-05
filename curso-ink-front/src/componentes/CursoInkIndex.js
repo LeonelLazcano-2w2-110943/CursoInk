@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardContent, CardMedia, Container, Divider, Grid, Paper, Typography, Box } from '@material-ui/core';
+import { Avatar, Button, Card, CardContent, CardMedia, Container, Divider, Grid, Paper, Typography, Box, Link as Linky } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import banner from '../standard-img/index.jpg';
 import style from './Tool/Style';
@@ -13,6 +13,7 @@ export default function CursoInkIndex() {
         usuariosRelevantes: [],
         cursosRelevantes: [],
         comunidadesMasRelevantes: [],
+        resumenGeneral: '',
         fotoUMA: '',
         fotoUR: '',
         fotoCR: ''
@@ -21,7 +22,7 @@ export default function CursoInkIndex() {
     useEffect(() => {
         getReporte().then(response => {
             setReporte(response.data);
-            // console.log(response.data);
+            console.log(response.data);
         });
     }, [])
 
@@ -43,17 +44,36 @@ export default function CursoInkIndex() {
                         <Typography component="h1" variant="h4">en CursoInk </Typography>
                     </div>
                 </div>
-                <Grid container spacing={1}>
-                    <Grid item xs={12} md={6}>
-                        <Button component={Link} to="/listaComunidades/" fullWidth variant="outlined" size="small" color="primary" style={style.submit}>Comunidades</Button>
+                <Grid container spacing={1} style={{ marginTop: "3%", marginBottom: "3%" }}>
+                    <Grid item xs={4} md={3}>
+                        <Box border={2} borderColor="#5BEE01">
+                            <Typography style={{ color: "#5BEE01" }} align="center" component="h1" variant="h6">{reporte.resumenGeneral.cantidadUsuarios}</Typography>
+                            <Typography style={{ color: "#5BEE01" }} align="center" component="h1" variant="h6">Usuarios</Typography>
+                        </Box>
                     </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Button component={Link} to="/listaTemas/" fullWidth variant="outlined" size="small" color="primary" style={style.submit}>Temas</Button>
+                    <Grid item xs={4} md={3}>
+                        <Linky href="/curso/paginador" style={style.cardLink}>
+                            <Box border={2} borderColor="primary.main">
+                                <Typography color="primary" align="center" component="h1" variant="h6">{reporte.resumenGeneral.cantidadCursos}</Typography>
+                                <Typography color="primary" align="center" component="h1" variant="h6">Cursos</Typography>
+                            </Box>
+                        </Linky>
                     </Grid>
-                </Grid>
-                <Grid style={{ marginBottom: "3%" }}>
-                    <Grid item xs={12} md={6} style={{ margin: "auto" }}>
-                        <Button component={Link} to="/curso/paginador" fullWidth variant="outlined" size="small" color="primary" style={style.submit}>Cursos</Button>
+                    <Grid item xs={4} md={3}>
+                        <Linky href="/listaComunidades/" style={style.cardLink}>
+                            <Box border={2} borderColor="#EE9F4A">
+                                <Typography style={{ color: "#EE9F4A" }} align="center" component="h1" variant="h6">{reporte.resumenGeneral.cantidadComunidades}</Typography>
+                                <Typography style={{ color: "#EE9F4A" }} align="center" component="h1" variant="h6">Comunidades</Typography>
+                            </Box>
+                        </Linky>
+                    </Grid>
+                    <Grid item xs={4} md={3}>
+                        <Linky href="/listaTemas/" style={style.cardLink}>
+                            <Box border={2} borderColor="#00E5AA">
+                                <Typography style={{ color: "#00E5AA" }} align="center" component="h1" variant="h6">{reporte.resumenGeneral.cantidadTemas}</Typography>
+                                <Typography style={{ color: "#00E5AA" }} align="center" component="h1" variant="h6">Temas</Typography>
+                            </Box>
+                        </Linky>
                     </Grid>
                 </Grid>
                 {reporte.cursosRelevantes != null &&

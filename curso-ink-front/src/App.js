@@ -28,6 +28,12 @@ import ListaRol from './componentes/seguridad/ListaRol';
 import EditarRol from './componentes/seguridad/EditarRol';
 import PaginadorCurso from './componentes/cursos/PaginadorCurso';
 import TerminosYCondiciones from './TerminosYCondiciones';
+import ImprimirCompra from './componentes/cursos/ImprimirCompra';
+import ListaCursosUser from './componentes/cursos/ListaCursosUser';
+import ListaComunidadUser from './componentes/comunidad/ListaComunidadUser';
+import ListaTemasUser from './componentes/temas/ListaTemasUser';
+import ListaComentariosUser from './componentes/comentarios/ListaComentariosUser';
+import ListaComprasUser from './componentes/compras/ListaComprasUser';
 
 function App() {
     const [{ openSnackBar }, dispatch] = useStateValue();
@@ -89,6 +95,12 @@ function App() {
                             <RutaSegura exact path="/nuevoRol" component={RolNuevo} />
                             <RutaSegura exact path="/listaRoles" component={ListaRol} />
                             <RutaSegura exact path="/editarRol/:id" component={EditarRol} />
+                            <RutaSegura exact path="/imprimirRecibo" component={ImprimirCompra} />
+                            <RutaSegura exact path="/misCursos" component={ListaCursosUser} />
+                            <RutaSegura exact path="/misComunidades" component={ListaComunidadUser} />
+                            <RutaSegura exact path="/misTemas" component={ListaTemasUser} />
+                            <RutaSegura exact path="/misComentarios" component={ListaComentariosUser} />
+                            <RutaSegura exact path="/misCompras" component={ListaComprasUser} />
                             <RutaSegura
                                 exact
                                 path="/auth/perfil"

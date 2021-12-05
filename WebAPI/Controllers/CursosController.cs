@@ -57,5 +57,11 @@ namespace WebAPI.Controllers
         {
             return await mediator.Send(data);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<List<CursoDTO>>> ListaCursosPorUsuario()
+        {
+            return await mediator.Send(new CursosPorUsuario.Ejecuta());
+        }
     }
 }

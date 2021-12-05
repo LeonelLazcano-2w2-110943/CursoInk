@@ -17,5 +17,11 @@ namespace WebAPI.Controllers
         {
             return await mediator.Send(data);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<List<CompraDTO>>> ListaComprasPorUsuario()
+        {
+            return await mediator.Send(new ComprasPorUsuario.Ejecuta());
+        }
     }
 }

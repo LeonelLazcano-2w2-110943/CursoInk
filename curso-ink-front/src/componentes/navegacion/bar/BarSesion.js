@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     seccionMobile: {
         display: "flex",
         [theme.breakpoints.up("md")]: {
-            display: "none"
+            display: "flex"
         }
     },
     grow: {
@@ -61,7 +61,14 @@ const BarSesion = (props) => {
             type: "SALIR_SESION",
             nuevoUsuario: null,
             autenticado: false
-        })
+        });
+        dispatch({
+            type: "OPEN_SNACKBAR",
+            openMensaje: {
+                open: true,
+                mensaje: 'Usuario deslogueado con éxito'
+            }
+        });
         props.history.push('/auth/login');
     }
 

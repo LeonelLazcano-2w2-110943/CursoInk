@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import style from '../Tool/Style';
 import logo from '../../logo.svg';
 import { deleteCurso, obtenerCurso, suscribir } from '../../actions/CursoAction';
-import { useParams } from 'react-router';
+import { useParams, withRouter } from 'react-router';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { useStateValue } from '../../contexto/Store';
@@ -15,6 +15,8 @@ import Cards from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
 import cardValidator, { number } from 'card-validator';
 import { nuevaCompra } from '../../actions/CompraAction';
+import ImprimirCompra from './ImprimirCompra';
+import ReciboCompra from './ReciboCompra';
 
 const useStyles = makeStyles((theme) => ({
     popover: {
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function CursoIndex() {
+export const CursoIndex = (props) => {
     //states
     const classes = useStyles();
     const { id } = useParams();
@@ -77,6 +79,11 @@ export default function CursoIndex() {
         name: '',
         number: '',
     });
+
+    const compra = {
+        Curso: curso.titulo,
+        UserName: sesionUsuario.usuario.userName
+    }
 
     useEffect(() => {
         obtenerCurso(id).then(response => {
@@ -152,21 +159,23 @@ export default function CursoIndex() {
                         type: "OPEN_SNACKBAR",
                         openMensaje: {
                             open: true,
-                            mensaje: "Curso adquirido con éxito! Bienvenido!"
+                            mensaje: "Curso adquirido con éxito!"
                         }
                     });
                     setSuscripto(true);
                 }
             });
-            const compra = {
-                Curso: curso.titulo,
-                UserName: sesionUsuario.usuario.userName
-            }
+
             nuevaCompra(compra).then(response => {
                 if (response.status === 200) {
                     console.log("compra registrada");
                 }
             });
+
+            props.history.push({
+                pathname: '/imprimirRecibo',
+                state: compra
+            })
         }
     }
 
@@ -392,7 +401,7 @@ export default function CursoIndex() {
                 <strong>Descripcion:</strong> {curso.descripcion}
             </p>
             <p>
-                <strong>Comentarios:</strong> {curso.comentarios.length}
+                <strong>Comentarios:</strong>
             </p>
             {curso.comentarios.map((comentario) =>
                 comentario.activo &&
@@ -552,7 +561,7 @@ export default function CursoIndex() {
                                 <Button size="small" onClick={handleCloseCreditCard} variant="contained" style={style.form} color="secondary">Cancelar</Button>
                             </Grid>
                             <Grid item xs={12} md={2}>
-                                <Button size="small" onClick={realizarCompra} variant="contained" style={style.form} color="primary">Comprar</Button>
+                                <Button size="small" onClick={realizarCompra} compra={compra} variant="contained" style={style.form} color="primary">Comprar</Button>
                             </Grid>
                         </Grid>
                     </Box>
@@ -561,4 +570,6 @@ export default function CursoIndex() {
         </Container >
     )
 }
+
+export default withRouter(CursoIndex);
 

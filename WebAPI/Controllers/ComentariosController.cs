@@ -1,4 +1,5 @@
 ﻿using Aplicacion.Comentarios;
+using Aplicacion.Cursos;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,13 +15,13 @@ namespace WebAPI.Controllers
     public class ComentariosController : MiControllerBase
     {
         [HttpPost]
-        public async Task<ActionResult<Unit>> Crear(Nuevo.Ejecuta data)
+        public async Task<ActionResult<Unit>> Crear(Aplicacion.Comentarios.Nuevo.Ejecuta data)
         {
             return await mediator.Send(data);
         }
 
         [HttpPost("editarComentario")]
-        public async Task<ActionResult<Unit>> Editar(Editar.Ejecuta data)
+        public async Task<ActionResult<Unit>> Editar(Aplicacion.Comentarios.Editar.Ejecuta data)
         {
             return await mediator.Send(data);
         }
@@ -28,7 +29,13 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Unit>> Eliminar(Guid id)
         {
-            return await mediator.Send(new Eliminar.Ejecuta { ComentarioId = id});
+            return await mediator.Send(new Aplicacion.Comentarios.Eliminar.Ejecuta { ComentarioId = id});
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<ComentarioDTO>>> ListaComentariosPorUsuario()
+        {
+            return await mediator.Send(new ComentariosPorUser.Ejecuta());
         }
     }
 }

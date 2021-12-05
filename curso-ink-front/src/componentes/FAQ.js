@@ -6,7 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 export default function FAQ() {
     return (
         <Container>
-            <Typography component="h1" variant="h4" style={style.titulos}>Preguntas frecuentes!</Typography>
+            <Typography align="center" component="h1" variant="h4" style={style.titulos}>Preguntas frecuentes!</Typography>
             <Accordion>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}

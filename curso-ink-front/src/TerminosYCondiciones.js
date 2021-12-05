@@ -1,12 +1,18 @@
 import { Container, Grid, Typography } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useLocation } from 'react-router';
 import style from './componentes/Tool/Style'
 
 export default function TerminosYCondiciones() {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
     return (
         <Container>
             <Grid style={style.titulos}>
-                <Typography component="h1" variant="h3">Términos y Condiciones de Uso</Typography>
+                <Typography align="center" component="h1" variant="h3">Términos y Condiciones de Uso</Typography>
             </Grid>
             <Grid style={{ marginBottom: "3%" }}>
                 <Typography component="h1" variant="h5">INFORMACIÓN RELEVANTE</Typography>

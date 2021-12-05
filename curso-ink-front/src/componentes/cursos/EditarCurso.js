@@ -1,20 +1,40 @@
-import { Button, Container, Grid, TextareaAutosize, TextField, Typography } from '@material-ui/core';
+import { Button, CardMedia, Container, Grid, TextareaAutosize, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { obtenerCurso, modificarCurso } from '../../actions/CursoAction';
 import { useStateValue } from '../../contexto/Store';
 import style from '../Tool/Style';
 import { withRouter } from 'react-router';
+import { obtenerDataImagen } from '../../actions/ImagenAction';
+import ImageUploader from 'react-images-upload';
+import { v4 as uuidv4 } from 'uuid';
+import CursoImagen from '../../standard-img/courseintroimage.jpg';
 
 export const EditarCurso = (props) => {
     const [{ sesionUsuario }, dispatch] = useStateValue();
+    const [imagen, setImagen] = useState('');
 
     const [curso, setCurso] = useState({
         cursoId: '',
         titulo: '',
         descripcion: '',
-        videoUrl: ''
+        videoUrl: '',
+        imagenCurso: '',
+        fotoUrl: ''
     });
+
+    const subirFoto = imagenes => {
+        const foto = imagenes[0];
+        const fotoUrl = URL.createObjectURL(foto);
+
+        obtenerDataImagen(foto).then((response) => {
+            setCurso(anterior => ({
+                ...anterior,
+                imagenCurso: response,
+                fotoUrl: fotoUrl
+            }));
+        })
+    }
 
     const ingresarValoresMemoria = e => {
         const { name, value } = e.target;
@@ -53,8 +73,15 @@ export const EditarCurso = (props) => {
     useEffect(() => {
         obtenerCurso(id).then(response => {
             setCurso(response.data);
+            setCurso(anterior => ({
+                ...anterior,
+                fotoUrl: response.data.imagenCurso,
+                imagenCurso: null
+            }));
         });
     }, [])
+
+    const fotoKey = uuidv4();
 
     return (
         <Container component="main" maxWidth="md" justify="center">
@@ -78,10 +105,31 @@ export const EditarCurso = (props) => {
                         <TextField name="videoUrl" value={curso.videoUrl} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="url del video" />
                     </Grid>
                     <Grid item xs={12} md={12}>
-                        <TextareaAutosize minRows={6} name="descripcion" value={curso.descripcion} onChange={ingresarValoresMemoria} style={style.textArea} label="Descripcion" />
+                        <TextareaAutosize minRows={3} name="descripcion" value={curso.descripcion} onChange={ingresarValoresMemoria} style={style.textArea} label="Descripcion" />
                     </Grid>
-                    <Grid container justifyContent="center">
-                        <Grid item xs={12} md={6}>
+                    <Grid container spacing={2}>
+                        <Grid xs={12} md={12}>
+                            <CardMedia
+                                component="img"
+                                height="194"
+                                image={curso.fotoUrl || CursoImagen}
+                                alt="Imagen de curso"
+                            />
+                        </Grid>
+                        <Grid xs={12} md={12}>
+                            <ImageUploader
+                                withIcon={false}
+                                key={fotoKey}
+                                singleImage={true}
+                                buttonText="Seleccione una imagen"
+                                onChange={subirFoto}
+                                imgExtension={[".jpg", ".gif", ".png", ".jpeg"]}
+                                maxFileSize={5242880}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container justifyContent="center" style={{ marginBottom: "3%" }}>
+                        <Grid item xs={12} md={12}>
                             <Button type="submit" fullWidth variant="contained" onClick={modificarCursoBoton} size="large" color="primary" style={style.submit}>
                                 Guardar
                             </Button>

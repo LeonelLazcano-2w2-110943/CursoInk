@@ -19,5 +19,27 @@ export const MenuDerecha = ({
             </ListItem>
         </List>
         <Divider />
+        <List>
+            <ListItem component={Link} button to="/misCursos">
+                <i className="material-icons">menu_book</i>
+                <ListItemText classes={{ primary: clases.listItemText }} primary="Mis cursos" />
+            </ListItem>
+            <ListItem component={Link} button to="/misComunidades">
+                <i className="material-icons">people_outline</i>
+                <ListItemText classes={{ primary: clases.listItemText }} primary="Mis comunidades" />
+            </ListItem>
+            <ListItem component={Link} button to="/misTemas">
+                <i className="material-icons">people</i>
+                <ListItemText classes={{ primary: clases.listItemText }} primary="Mis temas" />
+            </ListItem>
+            <ListItem component={Link} button to="/misComentarios">
+                <i className="material-icons">question_answer</i>
+                <ListItemText classes={{ primary: clases.listItemText }} primary="Mis comentarios" />
+            </ListItem>
+            <ListItem component={Link} button to="/misCompras">
+                <i className="material-icons">receipt</i>
+                <ListItemText classes={{ primary: clases.listItemText }} primary="Mis compras" />
+            </ListItem>
+        </List>
     </div >
 );

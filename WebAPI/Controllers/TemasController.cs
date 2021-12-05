@@ -44,5 +44,11 @@ namespace WebAPI.Controllers
         {
             return await mediator.Send(new ConsultaId.Ejecuta { TemaId = id });
         }
+
+        [HttpGet("TemaPorUsuario")]
+        public async Task<ActionResult<List<TemaDTO>>> ListaTemasPorUsuario()
+        {
+            return await mediator.Send(new TemasPorUsuario.Ejecuta());
+        }
     }
 }

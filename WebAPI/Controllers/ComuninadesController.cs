@@ -43,5 +43,11 @@ namespace WebAPI.Controllers
         {
             return await mediator.Send(new ConsultaId.Ejecuta { Id = id });
         }
+
+        [HttpGet("ComunidadPorUsuario")]
+        public async Task<ActionResult<List<ComunidadDTO>>> ListaComunidadesPorUsuario()
+        {
+            return await mediator.Send(new ComunidadesPorUsuarios.Ejecuta());
+        }
     }
 }

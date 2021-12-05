@@ -26,7 +26,7 @@ export default function ListaRol() {
                     type: "OPEN_SNACKBAR",
                     openMensaje: {
                         open: true,
-                        mensaje: "Rol modificado con éxito"
+                        mensaje: "Rol eliminado con éxito"
                     }
                 });
                 setOpenModal(false);
@@ -72,11 +72,14 @@ export default function ListaRol() {
                                     Editar
                                 </Button>
                             </Grid>
-                            <Grid xs={6} md={6}>
-                                <Button fullWidth type="submit" onClick={(e) => { eliminarBotonModal(e, rol.id) }} variant="text" size="small" color="secondary">
-                                    Eliminar
-                                </Button>
-                            </Grid>
+                            {
+                                rol.name !== "Admin" &&
+                                <Grid xs={6} md={6}>
+                                    <Button fullWidth type="submit" onClick={(e) => { eliminarBotonModal(e, rol.id) }} variant="text" size="small" color="secondary">
+                                        Eliminar
+                                    </Button>
+                                </Grid>
+                            }
                         </Grid>
                     </Grid>
                 )}
@@ -89,13 +92,13 @@ export default function ListaRol() {
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={style.modal}>
-                        <Typography component="h1" variant="h6" style={style.titulos}>Está seguro que desea eliminar este rol?</Typography>
-                        <Grid container spacing={2} style={{ marginTop: "2%" }}>
+                        <Typography align="center" component="h1" variant="h6" style={style.titulos}>Está seguro que desea eliminar este rol?</Typography>
+                        <Grid container spacing={2} style={{ marginTop: "2%" }} justifyContent="center">
                             <Grid item xs={12} md={3}>
-                                <Button size="small" onClick={cancelarEdicionBoton} color="primary">Cancelar</Button>
+                                <Button size="small" variant="contained" onClick={cancelarEdicionBoton} color="primary">Cancelar</Button>
                             </Grid>
                             <Grid item xs={12} md={3}>
-                                <Button size="small" onClick={eliminarBoton} color="secondary">Eliminar</Button>
+                                <Button size="small" variant="contained" onClick={eliminarBoton} color="secondary">Eliminar</Button>
                             </Grid>
                         </Grid>
                     </Box>

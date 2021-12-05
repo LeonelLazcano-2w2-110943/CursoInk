@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aplicacion.Temas;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +10,8 @@ namespace Aplicacion.Cursos
         public Guid ComentarioId { get; set; }
         public string Alumno { get; set; }
         public InstructorDTO AlumnoNombre { get; set; }
+        public TemaDTO Tema { get; set; }
+        public CursoDTO Curso { get; set; }
         public string ComentarioTexto { get; set; }
         public Guid? CursoId { get; set; }
         public Guid? TemaId { get; set; }

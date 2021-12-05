@@ -4,6 +4,7 @@ import style from '../Tool/Style';
 import { registrarUsuario } from '../../actions/UsuarioAction';
 import { useStateValue } from '../../contexto/Store';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 
 const RegistrarUsuario = (props) => {
@@ -41,12 +42,21 @@ const RegistrarUsuario = (props) => {
                 window.localStorage.setItem("token_seguridad", response.data.token);
                 props.history.push("/");
             }
+            else if (usuario.Password !== usuario.ConfirmarPassword) {
+                dispatch({
+                    type: "OPEN_SNACKBAR",
+                    openMensaje: {
+                        open: true,
+                        mensaje: 'Las contraseñas no coinciden'
+                    }
+                });
+            }
             else if (response.status === 500) {
                 dispatch({
                     type: "OPEN_SNACKBAR",
                     openMensaje: {
                         open: true,
-                        mensaje: 'Errores al intentar registrar usuario'
+                        mensaje: 'Errores al intentar registrar usuario, revise los datos ingresados'
                     }
                 });
             }
@@ -105,9 +115,10 @@ const RegistrarUsuario = (props) => {
                             </Button>
                         </Grid>
                     </Grid>
+                    <Typography component={Link} to="/auth/login" variant="caption" style={style.loginLink}>{"<--"} Volver al login</Typography>
                 </form>
             </div>
-        </Container>
+        </Container >
     );
 };
 

@@ -42,7 +42,10 @@ export const modificarCurso = (id, curso) => {
     return new Promise((resolve, eject) => {
         HttpCliente.put('/cursos/' + id, curso).then(response => {
             resolve(response);
-        });
+        })
+            .catch(error => {
+                resolve(error.response);
+            })
     });
 }
 
@@ -57,6 +60,14 @@ export const deleteCurso = (id) => {
 export const paginacionCurso = (paginador) => {
     return new Promise((resolve, eject) => {
         HttpCliente.post('/cursos/report', paginador).then(response => {
+            resolve(response);
+        })
+    });
+}
+
+export const listaCursosPorUsuario = () => {
+    return new Promise((resolve, eject) => {
+        HttpCliente.get('/cursos').then(response => {
             resolve(response);
         })
     });

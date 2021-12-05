@@ -7,3 +7,11 @@ export const nuevaCompra = compra => {
         });
     });
 }
+
+export const listaComprasPorUsuario = () => {
+    return new Promise((resolve, eject) => {
+        HttpCliente.get('/compras').then(response => {
+            resolve(response);
+        });
+    });
+}

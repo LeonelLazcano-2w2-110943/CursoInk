@@ -222,6 +222,21 @@ namespace Aplicacion.Reportes
 
                 #endregion
 
+                var totalUsuarios = _context.Usuario.Count();
+                var totalCursos = _context.Curso.Count();
+                var totalComunidades = _context.Comunidad.Count();
+                var totalTemas = _context.Tema.Count();
+
+                var resumen = new ResumenGeneral
+                {
+                    CantidadUsuarios = totalUsuarios,
+                    CantidadCursos = totalCursos,
+                    CantidadComunidades = totalComunidades,
+                    CantidadTemas = totalTemas
+                };
+
+                reporteGeneral.ResumenGeneral = resumen;
+
                 return reporteGeneral;
 
                 

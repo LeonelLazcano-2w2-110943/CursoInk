@@ -184,8 +184,8 @@ export default function TemaIndex() {
             <div style={style.tema}>
                 <Grid container>
                     <Grid xs={12} md={12}>
-                        <Typography component="h1" variant="overline">
-                            {tema.comunidad.nombre}
+                        <Typography component={Link} to={"/comunidadIndex/" + tema.comunidad.comunidadId} style={style.loginLink} variant="overline">
+                            {"<--" + tema.comunidad.nombre}
                         </Typography>
                     </Grid>
                     <Grid xs={12} md={11}>
@@ -218,11 +218,7 @@ export default function TemaIndex() {
                                 <h4 style={{ margin: 0, textAlign: "left" }}>{tema.usuarioCreador.userName}</h4>
                             </Grid>
                         </Grid>
-                        <Grid xs={12} md={1} >
-                            <Typography component="h1" variant="caption" style={{ color: "gray" }}>
-                                {moment(tema.fechaCreacion).format("DD-MM-YYYY")}
-                            </Typography>
-                        </Grid>
+
                     </Grid>
                     <Grid xs={12} md={12} style={{ marginBottom: "5%" }}>
                         <Grid>

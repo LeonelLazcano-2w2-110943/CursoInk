@@ -1,4 +1,5 @@
-﻿using Aplicacion.Comunidades;
+﻿using Aplicacion.Compras;
+using Aplicacion.Comunidades;
 using Aplicacion.Cursos;
 using Aplicacion.Temas;
 using AutoMapper;
@@ -26,6 +27,7 @@ namespace Aplicacion
                 .ForMember(x => x.UsuarioCreador, y=>y.MapFrom(z=>z.UsuarioCreador));
             CreateMap<Tema, TemaDTO>().
                 ForMember(x => x.ListaComentarios, y => y.MapFrom(z => z.ListaComentarios));
+            CreateMap<Compra, CompraDTO>();
         }
     }
 }

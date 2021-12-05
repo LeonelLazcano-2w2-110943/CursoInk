@@ -26,3 +26,14 @@ export const edicionComentario = comentario => {
             })
     });
 }
+
+export const listaComentarios = () => {
+    return new Promise((resolve, eject) => {
+        HttpCliente.get('/comentarios').then(response => {
+            resolve(response);
+        })
+            .catch(error => {
+                resolve(error.response);
+            })
+    });
+}
