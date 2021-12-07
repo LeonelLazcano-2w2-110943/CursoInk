@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, CardMedia, Container, Divider, Grid, IconButton, Modal, Paper, Popover, TextareaAutosize, TextField, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react';
 import style from '../Tool/Style';
-import logo from '../../logo.svg';
+import logo from '../../standard-img/user.jpg';
 import { deleteCurso, obtenerCurso, suscribir } from '../../actions/CursoAction';
 import { useParams, withRouter } from 'react-router';
 import moment from 'moment';
@@ -437,7 +437,7 @@ export const CursoIndex = (props) => {
                     </Grid>
                 </Paper>
             )}
-            <h4>Enviá tu comentario</h4>
+            <h4>Envia tu comentario</h4>
             <Paper style={{ padding: "40px 20px", marginBottom: "3%" }}>
                 <Grid item xs={12} md={12}>
                     <TextareaAutosize minRows={5} onChange={ingresarValoresMemoria} name="ComentarioTexto" style={style.textArea} label="Ingrese un comentario" />

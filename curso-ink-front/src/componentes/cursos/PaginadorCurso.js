@@ -92,7 +92,7 @@ export default function PaginadorCurso() {
                                     <TableCell align="left">Fecha de publicación</TableCell>
                                     <TableCell align="left">Precio</TableCell>
                                     <TableCell align="left">Autor</TableCell>
-                                    <TableCell align="left">Link</TableCell>
+                                    <TableCell align="left"></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>

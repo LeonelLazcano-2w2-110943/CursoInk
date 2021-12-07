@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Container, Grid, Modal, Paper, TextareaAutosize, TextField, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react';
 import style from '../Tool/Style';
-import logo from '../../logo.svg';
+import logo from '../../standard-img/user.jpg';
 import { useParams } from 'react-router';
 import moment from 'moment';
 import { deleteTema, obtenerTema } from '../../actions/TemaAction';
@@ -264,10 +264,10 @@ export default function TemaIndex() {
                     </Grid>
                 </Paper>
             )}
-            <h4>Enviá tu comentario</h4>
+            <h4>Envia tu comentario</h4>
             <Paper style={{ padding: "40px 20px", marginBottom: "3%" }}>
                 <Grid item xs={12} md={12}>
-                    <TextareaAutosize minRows={5} name="ComentarioTexto" onChange={ingresarValoresMemoria} style={style.textArea} placeholder="Escribe un comentario" />
+                    <TextareaAutosize minRows={5} name="ComentarioTexto" onChange={ingresarValoresMemoria} style={style.textArea} />
                 </Grid>
                 <Grid item xs={12} md={12} style={{ display: "none" }}>
                     <TextField name="cursoId" value={tema.temaId} variant="standard" fullWidth />

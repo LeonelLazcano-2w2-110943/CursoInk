@@ -34,6 +34,7 @@ import ListaComunidadUser from './componentes/comunidad/ListaComunidadUser';
 import ListaTemasUser from './componentes/temas/ListaTemasUser';
 import ListaComentariosUser from './componentes/comentarios/ListaComentariosUser';
 import ListaComprasUser from './componentes/compras/ListaComprasUser';
+import CursosAdquiridos from './componentes/compras/CursosAdquiridos';
 
 function App() {
     const [{ openSnackBar }, dispatch] = useStateValue();
@@ -101,6 +102,7 @@ function App() {
                             <RutaSegura exact path="/misTemas" component={ListaTemasUser} />
                             <RutaSegura exact path="/misComentarios" component={ListaComentariosUser} />
                             <RutaSegura exact path="/misCompras" component={ListaComprasUser} />
+                            <RutaSegura exact path="/cursosAdquiridos" component={CursosAdquiridos} />
                             <RutaSegura
                                 exact
                                 path="/auth/perfil"

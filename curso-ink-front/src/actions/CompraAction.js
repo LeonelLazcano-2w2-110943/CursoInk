@@ -15,3 +15,11 @@ export const listaComprasPorUsuario = () => {
         });
     });
 }
+
+export const listaCursosComprados = () => {
+    return new Promise((resolve, eject) => {
+        HttpCliente.get('/compras/cursosComprados').then(response => {
+            resolve(response);
+        });
+    });
+}

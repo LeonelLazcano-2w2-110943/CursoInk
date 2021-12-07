@@ -65,7 +65,7 @@ export const Login = (props) => {
                         Ingresar
                     </Button>
                     <Grid style={{ marginTop: "3%" }}>
-                        <Typography component={Link} variant="caption" to="/auth/registrar" style={style.loginLink}>No tenés cuenta en CursoInk? create una acá</Typography>
+                        <Typography component={Link} variant="caption" to="/auth/registrar" style={style.loginLink}>No tienes cuenta en CursoInk? crea una aquí</Typography>
                     </Grid>
                 </form>
             </div>

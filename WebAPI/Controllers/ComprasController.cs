@@ -1,4 +1,5 @@
 ﻿using Aplicacion.Compras;
+using Aplicacion.Cursos;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,6 +23,12 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<List<CompraDTO>>> ListaComprasPorUsuario()
         {
             return await mediator.Send(new ComprasPorUsuario.Ejecuta());
+        }
+
+        [HttpGet("cursosComprados")]
+        public async Task<ActionResult<List<CursoDTO>>> ListaCursosComprados()
+        {
+            return await mediator.Send(new CursosAdquiridos.Ejecuta());
         }
     }
 }

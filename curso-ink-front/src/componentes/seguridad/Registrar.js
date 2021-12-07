@@ -30,7 +30,6 @@ const RegistrarUsuario = (props) => {
     const registrarUsuarioBoton = e => {
         e.preventDefault();
         registrarUsuario(usuario, dispatch).then(response => {
-            console.log(response);
             if (response.status === 200) {
                 dispatch({
                     type: "OPEN_SNACKBAR",
@@ -40,6 +39,7 @@ const RegistrarUsuario = (props) => {
                     }
                 });
                 window.localStorage.setItem("token_seguridad", response.data.token);
+                console.log(response.data.token);
                 props.history.push("/");
             }
             else if (usuario.Password !== usuario.ConfirmarPassword) {
@@ -96,7 +96,7 @@ const RegistrarUsuario = (props) => {
                             <TextField name="Email" value={usuario.Email} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Ingrese su email" />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <TextField name="UserName" value={usuario.UserName} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Ingrese su user name" />
+                            <TextField name="UserName" value={usuario.UserName} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Ingrese su nombre de usuario" />
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <TextField name="Password" value={usuario.Password} onChange={ingresarValoresMemoria} type="password" variant="standard" fullWidth label="Ingrese su contraseña" />
@@ -104,10 +104,10 @@ const RegistrarUsuario = (props) => {
                         <Grid item xs={12} md={6}>
                             <TextField name="ConfirmarPassword" value={usuario.ConfirmarPassword} onChange={ingresarValoresMemoria} type="password" variant="standard" fullWidth label="Confirme su contraseña" />
                         </Grid><Grid item xs={12} md={12}>
-                            <TextareaAutosize minRows={6} name="Biografia" value={usuario.Biografia} onChange={ingresarValoresMemoria} style={style.textArea} fullWidth placeholder="Contanos sobre vos" />
+                            <TextareaAutosize minRows={6} name="Biografia" value={usuario.Biografia} onChange={ingresarValoresMemoria} style={style.textArea} fullWidth placeholder="Cuéntanos sobre ti" />
                         </Grid>
                     </Grid>
-                    <Typography style={{ color: "red" }} variant="caption">*La contraseña debe tener mas de 7 caracteres, tener al menos una letra mayúscula, una minúscula, un número y un caracter especial</Typography>
+                    <Typography style={{ color: "red" }} variant="caption">*La contraseña debe tener mas de 7 caracteres, al menos una letra mayúscula, una minúscula, un número y un carácter especial</Typography>
                     <Grid container justifyContent="center">
                         <Grid item xs={12} md={6}>
                             <Button type="submit" onClick={registrarUsuarioBoton} fullWidth variant="contained" color="primary" size="large" style={style.submit}>

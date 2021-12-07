@@ -78,7 +78,7 @@ export default function CursoInkIndex() {
                 </Grid>
                 {reporte.cursosRelevantes != null &&
                     <div>
-                        <Typography component="h1" variant="h4" style={style.titulos}>Nuestros cursos mas relevantes!</Typography>
+                        <Typography component="h1" variant="h4" style={style.titulos}>Nuestros cursos mas relevantes</Typography>
                         <Carousel navButtonsAlwaysVisible>
                             {reporte.cursosRelevantes.map((curso) =>
                                 <Grid xs={12} md={12} component={Link} to={"/cursoIndex/" + curso.cursoId} style={style.cardLink}>
@@ -108,7 +108,7 @@ export default function CursoInkIndex() {
                 }
                 {reporte.comunidadesMasRelevantes != null &&
                     <div>
-                        <Typography component="h1" variant="h4" style={style.titulos}>Comunidades mas activas!</Typography>
+                        <Typography component="h1" variant="h4" style={style.titulos}>Comunidades mas activas</Typography>
                         <Grid style={{ textAlign: "center" }}>
                             <Carousel navButtonsAlwaysVisible>
                                 {reporte.comunidadesMasRelevantes.map((comunidad) =>
@@ -125,7 +125,7 @@ export default function CursoInkIndex() {
                 {
                     reporte.usuariosRelevantes != null &&
                     <div>
-                        <Typography component="h1" variant="h4" style={style.titulos}>Usuarios Top!</Typography>
+                        <Typography component="h1" variant="h4" style={style.titulos}>Usuarios Top</Typography>
                         <Carousel navButtonsAlwaysVisible>
                             {reporte.usuariosRelevantes.map((usuario) =>
                                 <Grid xs={12} md={12}>
@@ -153,7 +153,7 @@ export default function CursoInkIndex() {
                 {
                     reporte.usuariosMasActivos != null &&
                     <div>
-                        <Typography component="h1" variant="h4" style={style.titulos}>Usuarios creadores!</Typography>
+                        <Typography component="h1" variant="h4" style={style.titulos}>Usuarios creadores</Typography>
                         <Carousel navButtonsAlwaysVisible>
                             {reporte.usuariosMasActivos.map((usuario) =>
                                 <Grid xs={12} md={12}>

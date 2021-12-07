@@ -15,7 +15,7 @@ export default function ListaTemas() {
     return (
         <Container Container component="main" maxWidth="md" justifyContent="flex-start" >
             <div style={style.paper}>
-                <Typography component="h1" variant="h4" style={{ marginBottom: "3%" }, style.titulos}>Últimos temas!</Typography>
+                <Typography component="h1" variant="h4" style={{ marginBottom: "3%" }, style.titulos}>Mis temas</Typography>
                 <Grid container spacing={2}>
                     {temas.map((tema) =>
                         <Grid xs={12} md={12}>

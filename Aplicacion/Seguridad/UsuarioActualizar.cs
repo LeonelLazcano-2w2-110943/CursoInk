@@ -118,7 +118,8 @@ namespace Aplicacion.Seguridad
                         Token = _jwtGenerador.CrearToken(usuario, listaRoles),
                         Biografia = usuario.Biografia,
                         Activo = usuario.Activo,
-                        ImagenPerfil = imagenGeneral
+                        ImagenPerfil = imagenGeneral,
+                        UsuarioId = usuario.Id
                     };
                 }
 

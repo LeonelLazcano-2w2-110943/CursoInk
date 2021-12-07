@@ -56,14 +56,14 @@ export const EditarCurso = (props) => {
                         mensaje: "Curso editado con éxito"
                     }
                 });
-                props.history.push("/curso/paginador");
+                props.history.push("/cursoIndex/" + curso.cursoId);
             }
             else {
                 dispatch({
                     type: "OPEN_SNACKBAR",
                     openMensaje: {
                         open: true,
-                        mensaje: 'Errores al intentar guardar en: ' + Object.keys(response.data.errors)
+                        mensaje: 'Errores al intentar guardar: ' + Object.keys(response.data.errors)
                     }
                 });
             }

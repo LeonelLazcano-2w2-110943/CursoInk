@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { actualizarUsuario, obtenerUsuarioActual } from '../../actions/UsuarioAction';
 import { useStateValue } from '../../contexto/Store';
 import style from '../Tool/Style';
-import reactFoto from '../../logo.svg';
+import reactFoto from '../../standard-img/user.jpg';
 import { v4 as uuidv4 } from 'uuid';
 import ImageUploader from 'react-images-upload';
 import { obtenerDataImagen } from '../../actions/ImagenAction';
@@ -58,7 +58,7 @@ export default function PerfilUsuario() {
                     type: "OPEN_SNACKBAR",
                     openMensaje: {
                         open: true,
-                        mensaje: 'Errores al intentar guardar en: ' + Object.values(response.data.errors)
+                        mensaje: 'Errores al intentar guardar: ' + Object.values(response.data.errors)
                     }
                 });
             }
@@ -108,16 +108,16 @@ export default function PerfilUsuario() {
                 <form style={style.form}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} md={12}>
-                            <TextField name="nombreCompleto" value={usuario.nombreCompleto} onChange={ingresarValoresMemoria} varian="standard" fullWidth label="Ingrese nombre y apellido" />
+                            <TextField name="nombreCompleto" value={usuario.nombreCompleto} onChange={ingresarValoresMemoria} varian="standard" fullWidth label="Ingrese su nombre y apellido" />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <TextField name="email" value={usuario.email} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Ingrese email" />
+                            <TextField name="email" value={usuario.email} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Ingrese su email" />
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <TextField name="userName" value={usuario.userName} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Ingrese su nombre de usuario" />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <TextField name="password" value={usuario.password} onChange={ingresarValoresMemoria} type="password" variant="standard" fullWidth label="Ingrese contraseña" />
+                            <TextField name="password" value={usuario.password} onChange={ingresarValoresMemoria} type="password" variant="standard" fullWidth label="Ingrese su contraseña" />
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <TextField name="ConfirmarPassword" value={usuario.ConfirmarPassword} onChange={ingresarValoresMemoria} type="password" variant="standard" fullWidth label="Confirme su contraseña" />
@@ -134,7 +134,7 @@ export default function PerfilUsuario() {
                             />
                         </Grid>
                         <Grid item xs={12} md={12}>
-                            <TextareaAutosize minRows={6} name="biografia" value={usuario.biografia} onChange={ingresarValoresMemoria} style={style.textArea} label="Ingrese su biografía" />
+                            <TextareaAutosize minRows={6} name="biografia" value={usuario.biografia} onChange={ingresarValoresMemoria} style={style.textArea} label="Cuéntanos sobre ti" />
                         </Grid>
                         <Grid container justifyContent="center">
                             <Grid item xs={12} md={6}>

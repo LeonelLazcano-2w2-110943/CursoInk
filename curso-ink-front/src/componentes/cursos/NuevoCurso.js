@@ -84,7 +84,7 @@ export default function NuevoCurso() {
                 resetearForm();
             }
             else {
-                mensaje += 'Errores al intentar guardar en: ' + Object.keys(response.data.errors)
+                mensaje += 'Errores al intentar guardar: ' + Object.keys(response.data.errors)
             }
 
             if (responseImagen != null) {
@@ -93,7 +93,7 @@ export default function NuevoCurso() {
                     resetearForm();
                 }
                 else {
-                    mensaje += 'Errores al intentar guardar en: ' + Object.keys(response.data.errors)
+                    mensaje += 'Errores al intentar guardar: ' + Object.keys(response.data.errors)
                 }
             }
 

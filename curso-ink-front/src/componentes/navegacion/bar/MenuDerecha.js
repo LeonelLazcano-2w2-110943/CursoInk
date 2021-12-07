@@ -1,7 +1,7 @@
 import { Avatar, Divider, List, ListItem, ListItemText } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import fotoUsuarioTemp from '../../../logo.svg';
+import fotoUsuarioTemp from '../../../standard-img/user.jpg';
 
 export const MenuDerecha = ({
     clases,
@@ -38,7 +38,11 @@ export const MenuDerecha = ({
             </ListItem>
             <ListItem component={Link} button to="/misCompras">
                 <i className="material-icons">receipt</i>
-                <ListItemText classes={{ primary: clases.listItemText }} primary="Mis compras" />
+                <ListItemText classes={{ primary: clases.listItemText }} primary="Mi historial de compras" />
+            </ListItem>
+            <ListItem component={Link} button to="/cursosAdquiridos">
+                <i className="material-icons">attach_money</i>
+                <ListItemText classes={{ primary: clases.listItemText }} primary="Mis cursos adquiridos" />
             </ListItem>
         </List>
     </div >

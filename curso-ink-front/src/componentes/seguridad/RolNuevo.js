@@ -46,7 +46,7 @@ export const RolNuevo = (props) => {
                     type: "OPEN_SNACKBAR",
                     openMensaje: {
                         open: true,
-                        mensaje: 'Errores al intentar guardar en: ' + Object.keys(response.data.errors)
+                        mensaje: 'Errores al intentar guardar: ' + Object.keys(response.data.errors)
                     }
                 });
             }

@@ -2,7 +2,7 @@ import { Avatar, Button, Drawer, IconButton, Toolbar, Typography } from '@materi
 import { makeStyles } from '@material-ui/styles';
 import React, { useState } from 'react';
 import { useStateValue } from '../../../contexto/Store';
-import fotoUsuarioTemp from '../../../logo.svg';
+import fotoUsuarioTemp from '../../../standard-img/user.jpg';
 import { MenuIzquierda } from './MenuIzquierda';
 import { Link, withRouter } from 'react-router-dom';
 import { MenuDerecha } from './MenuDerecha';
@@ -66,7 +66,7 @@ const BarSesion = (props) => {
             type: "OPEN_SNACKBAR",
             openMensaje: {
                 open: true,
-                mensaje: 'Usuario deslogueado con éxito'
+                mensaje: 'Sesión cerrada con éxito'
             }
         });
         props.history.push('/auth/login');
