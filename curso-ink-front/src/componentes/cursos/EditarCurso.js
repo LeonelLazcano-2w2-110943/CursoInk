@@ -63,7 +63,7 @@ export const EditarCurso = (props) => {
                     type: "OPEN_SNACKBAR",
                     openMensaje: {
                         open: true,
-                        mensaje: 'Errores al intentar guardar: ' + Object.keys(response.data.errors)
+                        mensaje: 'Errores al intentar guardar: ' + Object.values(response.data.errors)
                     }
                 });
             }

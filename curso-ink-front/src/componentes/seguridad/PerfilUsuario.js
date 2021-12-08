@@ -42,6 +42,15 @@ export default function PerfilUsuario() {
                     }
                 });
             }
+            else if (response.data.errores) {
+                dispatch({
+                    type: "OPEN_SNACKBAR",
+                    openMensaje: {
+                        open: true,
+                        mensaje: 'Errores al intentar guardar: ' + Object.values(response.data.errores)
+                    }
+                });
+            }
             else if (response.status === 200) {
                 dispatch({
                     type: "OPEN_SNACKBAR",
@@ -102,18 +111,18 @@ export default function PerfilUsuario() {
             <div style={style.paper}>
                 <Avatar style={style.avatar} src={usuario.fotoUrl || reactFoto}></Avatar>
                 <Typography component="h1" variant="h5">
-                    Perfil de usuario
+                    {usuario.userName}
                 </Typography>
 
                 <form style={style.form}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} md={12}>
+                        <Grid item xs={12} md={6}>
                             <TextField name="nombreCompleto" value={usuario.nombreCompleto} onChange={ingresarValoresMemoria} varian="standard" fullWidth label="Ingrese su nombre y apellido" />
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <TextField name="email" value={usuario.email} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Ingrese su email" />
                         </Grid>
-                        <Grid item xs={12} md={6}>
+                        <Grid item xs={12} md={6} style={{ display: "none" }}>
                             <TextField name="userName" value={usuario.userName} onChange={ingresarValoresMemoria} variant="standard" fullWidth label="Ingrese su nombre de usuario" />
                         </Grid>
                         <Grid item xs={12} md={6}>
